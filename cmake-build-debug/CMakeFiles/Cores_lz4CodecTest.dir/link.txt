@@ -1,0 +1,3 @@
+"D:\cpp\CLion\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\Cores_lz4CodecTest.dir/objects.a
+D:\MinGW\bin\ar.exe cr CMakeFiles\Cores_lz4CodecTest.dir/objects.a @CMakeFiles\Cores_lz4CodecTest.dir\objects1.rsp
+g++  -msse4.2 -m64 -mpclmul -msse4.2 -m64 -mpclmul -g   -Wl,--whole-archive CMakeFiles\Cores_lz4CodecTest.dir/objects.a -Wl,--no-whole-archive  -o lz4CodecTest.exe -Wl,--out-implib,liblz4CodecTest.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Cores_lz4CodecTest.dir\linklibs.rsp

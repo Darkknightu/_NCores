@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="Cores" targetName="Cores_LSMBloomFilterTest" />
+      <config projectName="Cores" targetName="Cores_TestTypes" />
+      <config projectName="Cores" targetName="Cores_RandomSeekTest" />
+      <config projectName="Cores" targetName="Cores_FDBTreeDbg" />
+      <config projectName="Cores" targetName="Cores_btreeTest" />
+      <config projectName="Cores" targetName="Cores_ParallelBandwidthTest" />
+      <config projectName="Cores" targetName="Cores" />
+      <config projectName="Cores" targetName="Cores_BandwidthTest" />
+      <config projectName="Cores" targetName="Cores_FDTreeDbg" />
+      <config projectName="Cores" targetName="Cores_BitsetTest" />
+      <config projectName="Cores" targetName="Cores_SIMDBasisTest" />
+      <config projectName="Cores" targetName="Cores_BasicTypeTest" />
+      <config projectName="Cores" targetName="Cores_BlockAppendTest" />
+      <config projectName="Cores" targetName="Cores_FDBTreeGen" />
+      <config projectName="Cores" targetName="Cores_BlockCacheTest" />
+      <config projectName="Cores" targetName="Cores_ClearMemory" />
+      <config projectName="Cores" targetName="gtest" />
+      <config projectName="Cores" targetName="Cores_stdcasTest" />
+      <config projectName="Cores" targetName="Cores_LibblBloomFilterBasicTest" />
+      <config projectName="Cores" targetName="Cores_MallocAndBeyondTest" />
+      <config projectName="Cores" targetName="Cores_btreeTestSearch" />
+      <config projectName="Cores" targetName="Cores_DiskPerformanceTest" />
+      <config projectName="Cores" targetName="Cores_FDBTreeSearch" />
+      <config projectName="Cores" targetName="Cores_lz4CodecTest" />
+      <config projectName="Cores" targetName="Cores_FDTreeTest" />
+      <config projectName="Cores" targetName="Cores_FDBTreeLoad" />
+      <config projectName="Cores" targetName="Cores_btreeTestBuild" />
+      <config projectName="Cores" targetName="Cores_BlockManagerTest" />
+      <config projectName="Cores" targetName="Cores_DiskAnsyncIOTest" />
+      <config projectName="Cores" targetName="check" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b9b43bcd-145f-44aa-90b6-758cb26fe0ab" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/cmake-build-release-remote-host/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/block/buffer/BlockCache.cpp">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+              <folding>
+                <element signature="e#42#65#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="26" column="42" lean-forward="true" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/block/buffer/BlockCache.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="51" column="19" lean-forward="true" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+              <folding>
+                <element signature="e#14#33#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>&lt;int&gt;</find>
+      <find>PrimitiveBlock</find>
+      <find>next</find>
+      <find>Boost_INCLUDE_DIR</find>
+      <find>LIB</find>
+      <find>Boost_FIND_REQUIRED</find>
+      <find>block</find>
+      <find>BLOCK_TESTS</find>
+      <find>block_te</find>
+      <find>FILTERING</find>
+      <find>zl</find>
+      <find>_count</find>
+      <find>seek</find>
+      <find>1024 * 1024</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/block/buffer/BlockCache.h" />
+        <option value="$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="w i" />
+      <command value="Cores_BlockCacheTest w i" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Cores_BlockCacheTest">
+    <configuration name="Cores_BandwidthTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BandwidthTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BandwidthTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_BasicTypeTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BasicTypeTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BasicTypeTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_BitsetTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BitsetTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BitsetTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_BlockAppendTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BlockAppendTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BlockAppendTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_BlockManagerTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BlockManagerTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BlockManagerTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_ClearMemory" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_ClearMemory" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_ClearMemory" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_DiskAnsyncIOTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_DiskAnsyncIOTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_DiskAnsyncIOTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_DiskPerformanceTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_DiskPerformanceTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_DiskPerformanceTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_LSMBloomFilterTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_LSMBloomFilterTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_LSMBloomFilterTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_MallocAndBeyondTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_MallocAndBeyondTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_MallocAndBeyondTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_ParallelBandwidthTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_ParallelBandwidthTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_ParallelBandwidthTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_RandomSeekTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_RandomSeekTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_RandomSeekTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_SIMDBasisTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_SIMDBasisTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_SIMDBasisTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_btreeTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_btreeTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_btreeTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_lz4CodecTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_lz4CodecTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_lz4CodecTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_stdcasTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_stdcasTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_stdcasTest" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_BlockCacheTest" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="w s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BlockCacheTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BlockCacheTest">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_FDBTreeDbg" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_FDBTreeDbg" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_FDBTreeDbg">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_FDBTreeGen" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_FDBTreeGen" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_FDBTreeGen">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_FDBTreeLoad" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_FDBTreeLoad" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_FDBTreeLoad">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_FDBTreeSearch" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_FDBTreeSearch" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_FDBTreeSearch">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_FDTreeDbg" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_FDTreeDbg" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_FDTreeDbg">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_FDTreeTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_FDTreeTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_FDTreeTest">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_LibblBloomFilterBasicTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_LibblBloomFilterBasicTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_LibblBloomFilterBasicTest">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_TestTypes" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_TestTypes" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_TestTypes">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_btreeTestBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_btreeTestBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_btreeTestBuild">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cores_btreeTestSearch" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_btreeTestSearch" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_btreeTestSearch">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="check" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="check" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gtest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="gtest" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.check" />
+      <item itemvalue="Application.Cores" />
+      <item itemvalue="Application.Cores_BlockCacheTest" />
+      <item itemvalue="Application.Cores_btreeTestBuild" />
+      <item itemvalue="Application.Cores_btreeTestSearch" />
+      <item itemvalue="Application.Cores_FDBTreeDbg" />
+      <item itemvalue="Application.Cores_FDBTreeGen" />
+      <item itemvalue="Application.Cores_FDBTreeLoad" />
+      <item itemvalue="Application.Cores_FDBTreeSearch" />
+      <item itemvalue="Application.Cores_FDTreeDbg" />
+      <item itemvalue="Application.Cores_FDTreeTest" />
+      <item itemvalue="Application.Cores_LibblBloomFilterBasicTest" />
+      <item itemvalue="Application.Cores_TestTypes" />
+      <item itemvalue="Application.gtest" />
+      <item itemvalue="Google Test.Cores_BandwidthTest" />
+      <item itemvalue="Google Test.Cores_BasicTypeTest" />
+      <item itemvalue="Google Test.Cores_BitsetTest" />
+      <item itemvalue="Google Test.Cores_BlockAppendTest" />
+      <item itemvalue="Google Test.Cores_BlockManagerTest" />
+      <item itemvalue="Google Test.Cores_btreeTest" />
+      <item itemvalue="Google Test.Cores_ClearMemory" />
+      <item itemvalue="Google Test.Cores_DiskAnsyncIOTest" />
+      <item itemvalue="Google Test.Cores_DiskPerformanceTest" />
+      <item itemvalue="Google Test.Cores_LSMBloomFilterTest" />
+      <item itemvalue="Google Test.Cores_lz4CodecTest" />
+      <item itemvalue="Google Test.Cores_MallocAndBeyondTest" />
+      <item itemvalue="Google Test.Cores_ParallelBandwidthTest" />
+      <item itemvalue="Google Test.Cores_RandomSeekTest" />
+      <item itemvalue="Google Test.Cores_SIMDBasisTest" />
+      <item itemvalue="Google Test.Cores_stdcasTest" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9b43bcd-145f-44aa-90b6-758cb26fe0ab" name="Default Changelist" comment="" />
+      <created>1551366564484</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551366564484</updated>
+      <workItem from="1551366577568" duration="2198000" />
+      <workItem from="1551508329391" duration="3863000" />
+      <workItem from="1551625145238" duration="2343000" />
+      <workItem from="1551627796030" duration="657000" />
+      <workItem from="1551680102704" duration="4694000" />
+      <workItem from="1551773255039" duration="3908000" />
+      <workItem from="1551885265156" duration="2740000" />
+      <workItem from="1551965362802" duration="4707000" />
+      <workItem from="1552101042801" duration="15960000" />
+      <workItem from="1552123475612" duration="4004000" />
+      <workItem from="1552289858356" duration="10352000" />
+      <workItem from="1552454072491" duration="13251000" />
+      <workItem from="1552549401928" duration="1743000" />
+      <workItem from="1552552182918" duration="1558000" />
+      <workItem from="1552560080349" duration="1126000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="73104000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.27345845" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.19121814" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24787535" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.33002833" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3286119" />
+      <window_info anchor="bottom" id="CMake" order="12" weight="0.2266289" />
+      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.33144477" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27345845" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.19121814" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.24787535" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.33002833" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3286119" />
+      <window_info anchor="bottom" id="CMake" order="12" weight="0.0878187" />
+      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.33144477" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/block/buffer/BlockCache.h</url>
+          <line>78</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/block/buffer/BlockCache.h</url>
+          <line>35</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/cmake/modules/Findbzip2.cmake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/bin/cmake/win/share/cmake-3.13/Modules/FindBoost.cmake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="2112" column="9" selection-start-line="2112" selection-start-column="9" selection-end-line="2112" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/block/buffer/BlockCache.cpp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="26" column="42" lean-forward="true" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/block/buffer/BlockCache.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="51" column="19" lean-forward="true" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+          <folding>
+            <element signature="e#14#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <folding>
+            <element signature="e#42#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
