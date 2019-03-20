@@ -60,9 +60,18 @@ class PrimitiveBlock
     size_t _total;
 
 public:
-    PrimitiveBlock(FILE *fp, size_t begin, int count = 0, int limit = 1024) : _cache((type *)calloc(8*limit, sizeof(char))), _fp(fp),
+    PrimitiveBlock(FILE *fp, size_t begin, int count = 0, int limit = 1024) : _cache((type *)calloc(limit, sizeof(char))), _fp(fp),
                                                                               _offset(begin), _count(count),
                                                                               _limit(limit/(sizeof(type))),
+                                                                              _cursor(0) {
+        bigseek(fp, 0, SEEK_END);
+        _total = bigtell(fp);
+        bigseek(fp, _offset, SEEK_SET);
+    }
+
+    PrimitiveBlock(FILE *fp,char* cache, int limit = 1024) : _cache(cache), _fp(fp),
+                                                                              _offset(0), _count(0),
+                                                                              _limit(limit),
                                                                               _cursor(0) {
         bigseek(fp, 0, SEEK_END);
         _total = bigtell(fp);
@@ -74,9 +83,33 @@ public:
         codec::encode(&_cache[idx],value);
     }
 
+    void set_teststring(){
+        short lgth=_limit/16-1;
+        *(short*)_cache=lgth;
+        for (int i = 0; i < lgth; ++i) {
+            ((short*)_cache)[i+1]=14;
+        }
+        char* tmp=(char*)((short *)_cache+lgth+1);
+        for (int i = 0; i < lgth; ++i) {
+            std::strcpy(tmp,"my teststring");
+            tmp+=14;
+        }
+    }
+
     type get(int idx) {
         //return _cache[idx];
         return codec::decode(&_cache[idx]);
+    }
+
+    void get_teststring(){
+        short * lp=(short*)_cache;
+        short ll=lp[0];
+        char* cp=(char*)_cache+ll*2+2;
+        for (int i = 0; i < ll; ++i) {
+            cp;
+            cp+=lp[ll+1];
+        }
+
     }
 
     void append(type value) {
