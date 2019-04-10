@@ -11,30 +11,32 @@
 #include "CoresRandomAccessor.h"
 
 using namespace std;
-
-namespace codec{
-    template<class T> void encode(T* _cache, T value){
-        *_cache=value;
+namespace codec {
+    template<class T>
+    void encode(T *_cache, int _idx, T _value) {
+        _cache[_idx] = _value;
     }
 
-    template<class T> T decode(T* _cache){
-        return *_cache;
+    template<class T>
+    T decode(T *_cache, int _idx) {
+        return _cache[_idx];
     }
 
-    template <>
-    void encode(char** _cache, char* value)
-    {
-        *(short *)_cache=strlen(value);
-        _cache+=2;
-        std::strcpy((char *)_cache,value);
+    template<>
+    void encode(char **_cache, int _idx, char *_value) {
+        short *length;
+        length = (short *) ((char *) _cache + _idx);
+        *length = strlen(_value);
+        char *tmp = (char *) length + 2;
+        std::strcpy(tmp, _value);
     }
 
-    template <>
-    char* decode(char** _cache)
-    {
-        short lgth= *(short *)_cache;
-        _cache+=2;
-        return (char*)_cache;
+    template<>
+    char *decode(char **_cache, int _idx) {
+        char *tmp = (char *) _cache + _idx;
+        short length = *(short *) tmp;
+        tmp += 2;
+        return (char *) tmp;
     }
 
 }
@@ -60,56 +62,31 @@ class PrimitiveBlock
     size_t _total;
 
 public:
-    PrimitiveBlock(FILE *fp, size_t begin, int count = 0, int limit = 1024) : _cache((type *)calloc(limit, sizeof(char))), _fp(fp),
+    PrimitiveBlock(FILE *fp, size_t begin, int count = 0, int limit = 1024) : _cache(
+            (type *) calloc(limit, sizeof(char))), _fp(fp),
                                                                               _offset(begin), _count(count),
-                                                                              _limit(limit/(sizeof(type))),
+                                                                              _limit(limit / (sizeof(type))),
                                                                               _cursor(0) {
-        bigseek(fp, 0, SEEK_END);
-        _total = bigtell(fp);
-        bigseek(fp, _offset, SEEK_SET);
+//        bigseek(fp, 0, SEEK_END);
+//        _total = bigtell(fp);
+//        bigseek(fp, _offset, SEEK_SET);
     }
 
-    PrimitiveBlock(FILE *fp,char* cache, int limit = 1024) : _cache(cache), _fp(fp),
-                                                                              _offset(0), _count(0),
-                                                                              _limit(limit),
-                                                                              _cursor(0) {
+    PrimitiveBlock(FILE *fp, char *cache, int limit = 1024) : _cache(cache), _fp(fp),
+                                                              _offset(0), _count(0),
+                                                              _limit(limit),
+                                                              _cursor(0) {
         bigseek(fp, 0, SEEK_END);
         _total = bigtell(fp);
         bigseek(fp, _offset, SEEK_SET);
     }
 
     void set(int idx, type value) {
-        //_cache[idx] = value;
-        codec::encode(&_cache[idx],value);
-    }
-
-    void set_teststring(){
-        short lgth=_limit/16-1;
-        *(short*)_cache=lgth;
-        for (int i = 0; i < lgth; ++i) {
-            ((short*)_cache)[i+1]=14;
-        }
-        char* tmp=(char*)((short *)_cache+lgth+1);
-        for (int i = 0; i < lgth; ++i) {
-            std::strcpy(tmp,"my teststring");
-            tmp+=14;
-        }
+        codec::encode(_cache, idx, value);
     }
 
     type get(int idx) {
-        //return _cache[idx];
-        return codec::decode(&_cache[idx]);
-    }
-
-    void get_teststring(){
-        short * lp=(short*)_cache;
-        short ll=lp[0];
-        char* cp=(char*)_cache+ll*2+2;
-        for (int i = 0; i < ll; ++i) {
-            cp;
-            cp+=lp[ll+1];
-        }
-
+        return codec::decode(_cache, idx);
     }
 
     void append(type value) {
@@ -145,7 +122,8 @@ public:
     }
 
     void appendToFile(type *buf) {
-        fwrite(_cache, sizeof(type), _limit, _fp);
+        fwrite(buf, sizeof(type), _limit, _fp);
+        memset(buf, 0, sizeof(type) * _limit);
     }
 
     void writeToFile() {
