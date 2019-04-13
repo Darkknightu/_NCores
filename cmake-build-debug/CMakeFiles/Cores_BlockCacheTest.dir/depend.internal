@@ -8,5 +8,6 @@ CMakeFiles/Cores_BlockCacheTest.dir/test/block/buffer/BlockCacheTest.cpp.obj
  ../src/block/buffer/CoresIterator.h
  ../src/block/buffer/CoresRandomAccessor.h
  ../src/osdep/FileOperations.h
+ ../src/utils/Bitset.h
  ../src/utils/utils.h
  D:/Science/avro_c++/_NCores/test/block/buffer/BlockCacheTest.cpp

@@ -40,6 +40,14 @@ stdint.h
 stdlib.h
 -
 
+../src/utils/Bitset.h
+string.h
+-
+assert.h
+-
+iostream
+-
+
 ../src/utils/utils.h
 iostream
 -
@@ -57,6 +65,8 @@ BlockCache.h
 D:/Science/avro_c++/_NCores/test/block/buffer/BlockCache.h
 utils.h
 D:/Science/avro_c++/_NCores/test/block/buffer/utils.h
+Bitset.h
+D:/Science/avro_c++/_NCores/test/block/buffer/Bitset.h
 vector
 -
 memory

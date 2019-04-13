@@ -67,7 +67,7 @@ public:
                                                                               _offset(begin), _count(count),
                                                                               _limit(limit / (sizeof(type))),
                                                                               _cursor(0) {
-//        bigseek(fp, 0, SEEK_END);
+//        bigseek(fp, 0, SEEK_END);F
 //        _total = bigtell(fp);
 //        bigseek(fp, _offset, SEEK_SET);
     }

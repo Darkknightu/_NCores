@@ -3,12 +3,13 @@
 //
 #include "BlockCache.h"
 #include "utils.h"
+#include "Bitset.h"
 #include <vector>
 #include <memory>
 
 using namespace std;
 
-#define ROW_COUNT 1024*1024
+#define ROW_COUNT 16*1024
 
 #define BLOCK_COUNT 4096
 
@@ -59,15 +60,16 @@ namespace test_write {
     void readfile(char* fname,T value, int blocksize, int rowcount) {
         FILE *fp = fopen(fname, "rb+");
         unsigned long long verify = 0;
-        PrimitiveBlock<long> *intBlock = new PrimitiveBlock<long>(fp, 10 * 1024 * 1024, 0, blocksize);
+        PrimitiveBlock<T> *intBlock = new PrimitiveBlock<T>(fp, 0, 0, blocksize);
         unsigned long long total = 0;
         Tracer tracer;
         tracer.startTime();
         unsigned long long count = 0;
         unsigned long long filter = rowcount * sizeof(long) * FILTERINGRATE;
-        for (int k = 0; k < rowcount / (blocksize / sizeof(T)); k++) {
+        int rowpercount=blocksize / sizeof(T);
+        for (int k = 0; k < rowcount / rowpercount; k++) {
             intBlock->loadFromFile();
-            for (int i = 0; i < blocksize / sizeof(long); i++) {
+            for (int i = 0; i < rowpercount; i++) {
                 if (FILTERING) {
                     if (intBlock->get(i) > filter) {
                         count++;
@@ -146,7 +148,7 @@ public:
 };
 
 class HeadReader{
-    int offset;
+    long offset;
     int rowCount;
     int blockSize;
     int columnCount;
@@ -203,6 +205,10 @@ public:
         }
         this->setColumns(*columns);
     }
+};
+
+class RecordReader{
+
 };
 
 template<class T>
@@ -267,13 +273,18 @@ void readfromfile(char *fname){
     headreader->readHeader(file_in);
     file_in.close();
     FILE* fp=fopen(fname,"rb+");
+    int rowcount=headreader->getRowCount();
+    unique_ptr<Bitset> intset(new Bitset(rowcount));
     unique_ptr<PrimitiveBlock<int>>intBlock(new PrimitiveBlock<int>(fp, 0L, 0, BLOCK_LIMIT));
     fseek(fp,headreader->getOffset(), SEEK_SET);
-    int tmp;
+    int tmp=0;
     for (int i = 0; i < headreader->getColumns()[0].getblockCount(); ++i) {
         intBlock->loadFromFile();
         for (int j = 0; j < headreader->getColumns()[0].getBlocks()[0].getRowcount(); ++j) {
-            tmp=intBlock->get(j);
+            tmp++;
+            if(intBlock->get(j)%1000==0){
+                intset->set(tmp);
+            };
         }
     }
     unique_ptr<PrimitiveBlock<long>>longBlock(new PrimitiveBlock<long>(fp, 0L, 0, BLOCK_LIMIT));
