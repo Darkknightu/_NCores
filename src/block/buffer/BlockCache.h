@@ -112,7 +112,7 @@ public:
         return _cache;
     }
 
-    type *loadFromFile() {
+        type *loadFromFile() {
         fread(_cache, sizeof(type), _limit, _fp);
         return _cache;
     }

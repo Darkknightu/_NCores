@@ -42,11 +42,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b9b43bcd-145f-44aa-90b6-758cb26fe0ab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/BlockCacheTest.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/BlockCacheTest.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Cores_BlockCacheTest.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Cores_BlockCacheTest.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Cores_BlockCacheTest.dir/test/block/buffer/BlockCacheTest.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Cores_BlockCacheTest.dir/test/block/buffer/BlockCacheTest.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/block/buffer/BlockCache.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/block/buffer/BlockCache.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/columnar/ColumnarFile.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/columnar/ColumnarFile.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -63,15 +59,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
+            <state relative-caret-position="223">
+              <caret line="374" column="4" lean-forward="true" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="4" />
               <folding>
                 <element signature="e#42#65#0" expanded="true" />
-                <element signature="e#2667#3270#1" />
-                <element signature="e#3273#3992#1" />
-                <element signature="e#5682#6114#0" />
-                <element signature="e#6116#6532#0" />
-                <element signature="e#9194#14486#0" />
+                <element signature="e#344#1004#0" />
+                <element signature="e#1010#1612#0" />
+                <element signature="e#1618#2684#0" />
+                <element signature="e#2688#3291#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/utils.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="e#14#33#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/Bitset.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5225">
-              <caret line="277" column="16" lean-forward="true" selection-start-line="277" selection-start-column="16" selection-end-line="277" selection-end-column="16" />
+            <state relative-caret-position="5263">
+              <caret line="277" column="16" selection-start-line="277" selection-start-column="16" selection-end-line="277" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -98,8 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="216">
+              <caret line="360" column="33" selection-start-line="360" selection-start-column="22" selection-end-line="360" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -116,8 +123,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/block/buffer/BlockCache.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+            <state>
               <folding>
                 <element signature="e#14#33#0" expanded="true" />
                 <element signature="e#281#290#0" expanded="true" />
@@ -129,18 +135,25 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/MinGW/x86_64-w64-mingw32/include/stdio.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11476">
+              <caret line="604" column="17" selection-start-line="604" selection-start-column="17" selection-end-line="604" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>&lt;int&gt;</find>
-      <find>PrimitiveBlock</find>
       <find>next</find>
       <find>Boost_INCLUDE_DIR</find>
       <find>LIB</find>
       <find>Boost_FIND_REQUIRED</find>
       <find>block</find>
-      <find>BLOCK_TESTS</find>
       <find>block_te</find>
       <find>FILTERING</find>
       <find>zl</find>
@@ -148,12 +161,21 @@
       <find>seek</find>
       <find>1024 * 1024</find>
       <find>liba</find>
-      <find>_cache</find>
       <find>set</find>
       <find>append</find>
       <find>writefile</find>
       <find>1024</find>
+      <find>readfile</find>
+      <find>PrimitiveBlock</find>
       <find>uni</find>
+      <find>_cache</find>
+      <find>loadFromFile</find>
+      <find>BLOCKSOURCE</find>
+      <find>BlockCache</find>
+      <find>BLOCK_TESTS</find>
+      <find>ROW_COUNT</find>
+      <find>intset</find>
+      <find>floatBlock</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,8 +196,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="783" />
-    <option name="height" value="832" />
+    <option name="x" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -362,7 +385,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Cores_BlockCacheTest" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="r l" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BlockCacheTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BlockCacheTest">
+    <configuration name="Cores_BlockCacheTest" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="rf" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cores" TARGET_NAME="Cores_BlockCacheTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cores" RUN_TARGET_NAME="Cores_BlockCacheTest">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -497,12 +520,13 @@
       <workItem from="1553662880940" duration="10304000" />
       <workItem from="1553872954266" duration="32910000" />
       <workItem from="1554797856842" duration="19893000" />
-      <workItem from="1554963863297" duration="6760000" />
+      <workItem from="1554963863297" duration="10033000" />
+      <workItem from="1555291755608" duration="9103000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193934000" />
+    <option name="totallyTimeSpent" value="206310000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -517,13 +541,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30764076" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2272118" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.19121814" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.296034" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39235127" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.26203966" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32664755" />
@@ -571,43 +595,48 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>386</line>
+          <line>457</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>373</line>
+          <line>444</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>270</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>238</line>
+          <line>245</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>289</line>
+          <line>332</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>281</line>
+          <line>321</line>
           <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
-          <line>185</line>
-          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/utils/utils.h</url>
           <line>2</line>
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
+          <line>77</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
+          <line>135</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp</url>
+          <line>195</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -656,31 +685,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/MinGW/x86_64-w64-mingw32/include/stdio.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/MinGW/include/c++/8.2.0/bits/unique_ptr.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="337" selection-start-line="337" selection-end-line="337" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/osdep/FileOperations.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -707,8 +715,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/utils.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="399">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#14#33#0" expanded="true" />
           </folding>
@@ -717,8 +725,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/Bitset.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5225">
-          <caret line="277" column="16" lean-forward="true" selection-start-line="277" selection-start-column="16" selection-end-line="277" selection-end-column="16" />
+        <state relative-caret-position="5263">
+          <caret line="277" column="16" selection-start-line="277" selection-start-column="16" selection-end-line="277" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -729,10 +737,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/osdep/FileOperations.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/MinGW/x86_64-w64-mingw32/include/stdio.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11476">
+          <caret line="604" column="17" selection-start-line="604" selection-start-column="17" selection-end-line="604" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/block/buffer/BlockCache.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+        <state>
           <folding>
             <element signature="e#14#33#0" expanded="true" />
             <element signature="e#281#290#0" expanded="true" />
@@ -743,17 +764,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="360" column="33" selection-start-line="360" selection-start-column="22" selection-end-line="360" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/block/buffer/BlockCacheTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
+        <state relative-caret-position="223">
+          <caret line="374" column="4" lean-forward="true" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="4" />
           <folding>
             <element signature="e#42#65#0" expanded="true" />
-            <element signature="e#2667#3270#1" />
-            <element signature="e#3273#3992#1" />
-            <element signature="e#5682#6114#0" />
-            <element signature="e#6116#6532#0" />
-            <element signature="e#9194#14486#0" />
+            <element signature="e#344#1004#0" />
+            <element signature="e#1010#1612#0" />
+            <element signature="e#1618#2684#0" />
+            <element signature="e#2688#3291#1" />
           </folding>
         </state>
       </provider>
