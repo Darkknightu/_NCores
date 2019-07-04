@@ -2117,6 +2117,86 @@
 					<DistClean command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="Cores_TestSchema">
+				<Option output="D:/Science/avro_c++/_NCores/cmake-build-debug/TestSchema.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Science/avro_c++/_NCores/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DHAVE_SSE42"/>
+					<Add option="-DHAVE_PCLMUL"/>
+					<Add option="-DCORES_SUPPORT_THREAD_LOCAL"/>
+					<Add directory="D:/MinGW/include"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/io/codec"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/osdep"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/btree"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/bloom"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/block"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/columnar"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/fdtree"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/block/buffer"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/schema"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/column"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/parser"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/record"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/utils"/>
+					<Add directory="D:/Science/avro_c++/_NCores/third-party/gtest-1.7.0/fused-src"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/x86_64-w64-mingw32"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/backward"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/include"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/include-fixed"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 Cores_TestSchema"/>
+					<CompileFile command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Cores_TestSchema/fast">
+				<Option output="D:/Science/avro_c++/_NCores/cmake-build-debug/TestSchema.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Science/avro_c++/_NCores/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DHAVE_SSE42"/>
+					<Add option="-DHAVE_PCLMUL"/>
+					<Add option="-DCORES_SUPPORT_THREAD_LOCAL"/>
+					<Add directory="D:/MinGW/include"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/io/codec"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/osdep"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/btree"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/bloom"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/block"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/columnar"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/fdtree"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/block/buffer"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/schema"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/column"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/parser"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/metadata/record"/>
+					<Add directory="D:/Science/avro_c++/_NCores/src/utils"/>
+					<Add directory="D:/Science/avro_c++/_NCores/third-party/gtest-1.7.0/fused-src"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/x86_64-w64-mingw32"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/backward"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/include"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/include-fixed"/>
+					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 Cores_TestSchema/fast"/>
+					<CompileFile command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MinGW/bin/make.exe -f &quot;D:/Science/avro_c++/_NCores/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="Cores_btreeTestBuild">
 				<Option output="D:/Science/avro_c++/_NCores/cmake-build-debug/btreeTestBuild.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="D:/Science/avro_c++/_NCores/cmake-build-debug"/>
@@ -2304,7 +2384,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="D:/MinGW/include"/>
 					<Add directory="D:/Science/avro_c++/_NCores/third-party/gtest-1.7.0/fused-src"/>
 					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0"/>
 					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/x86_64-w64-mingw32"/>
@@ -2327,7 +2406,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="D:/MinGW/include"/>
 					<Add directory="D:/Science/avro_c++/_NCores/third-party/gtest-1.7.0/fused-src"/>
 					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0"/>
 					<Add directory="d:\mingw\bin\../lib/gcc/x86_64-w64-mingw32/8.2.0/../../../../include/c++/8.2.0/x86_64-w64-mingw32"/>
@@ -2396,54 +2474,63 @@
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/BTreeEntry.h">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/BTreeNode.cpp">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/BTreeNode.h">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/SerialBTree.cpp">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/SerialBTree.h">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/cache/cache.cpp">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/misc/global.cpp">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/btree/misc/global.h">
 			<Option target="Cores_btreeTestSearch"/>
 			<Option target="Cores_btreeTest"/>
 			<Option target="Cores_TestTypes"/>
+			<Option target="Cores_TestSchema"/>
 			<Option target="Cores_btreeTestBuild"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/src/fdtree/Timer.cpp">
@@ -2661,6 +2748,9 @@
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/test/lsmtree/LSMBloomFilterTest.cpp">
 			<Option target="Cores_LSMBloomFilterTest"/>
+		</Unit>
+		<Unit filename="D:/Science/avro_c++/_NCores/test/metadata/parser/TestSchema.cpp">
+			<Option target="Cores_TestSchema"/>
 		</Unit>
 		<Unit filename="D:/Science/avro_c++/_NCores/test/metadata/parser/TestTypes.cpp">
 			<Option target="Cores_TestTypes"/>

@@ -60,15 +60,15 @@ third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/gtest-all.cc.obj: t
 third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/gtest-all.cc.obj: third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/includes_CXX.rsp
 third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/gtest-all.cc.obj: ../third-party/gtest-1.7.0/fused-src/gtest/gtest-all.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Science\avro_c++\_NCores\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/gtest-all.cc.obj"
-	cd /d D:\Science\avro_c++\_NCores\cmake-build-debug\third-party\gtest-1.7.0\fused-src\gtest && g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\gtest.dir\gtest-all.cc.obj -c D:\Science\avro_c++\_NCores\third-party\gtest-1.7.0\fused-src\gtest\gtest-all.cc
+	cd /d D:\Science\avro_c++\_NCores\cmake-build-debug\third-party\gtest-1.7.0\fused-src\gtest && D:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\gtest.dir\gtest-all.cc.obj -c D:\Science\avro_c++\_NCores\third-party\gtest-1.7.0\fused-src\gtest\gtest-all.cc
 
 third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/gtest-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest.dir/gtest-all.cc.i"
-	cd /d D:\Science\avro_c++\_NCores\cmake-build-debug\third-party\gtest-1.7.0\fused-src\gtest && g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Science\avro_c++\_NCores\third-party\gtest-1.7.0\fused-src\gtest\gtest-all.cc > CMakeFiles\gtest.dir\gtest-all.cc.i
+	cd /d D:\Science\avro_c++\_NCores\cmake-build-debug\third-party\gtest-1.7.0\fused-src\gtest && D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Science\avro_c++\_NCores\third-party\gtest-1.7.0\fused-src\gtest\gtest-all.cc > CMakeFiles\gtest.dir\gtest-all.cc.i
 
 third-party/gtest-1.7.0/fused-src/gtest/CMakeFiles/gtest.dir/gtest-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest.dir/gtest-all.cc.s"
-	cd /d D:\Science\avro_c++\_NCores\cmake-build-debug\third-party\gtest-1.7.0\fused-src\gtest && g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Science\avro_c++\_NCores\third-party\gtest-1.7.0\fused-src\gtest\gtest-all.cc -o CMakeFiles\gtest.dir\gtest-all.cc.s
+	cd /d D:\Science\avro_c++\_NCores\cmake-build-debug\third-party\gtest-1.7.0\fused-src\gtest && D:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Science\avro_c++\_NCores\third-party\gtest-1.7.0\fused-src\gtest\gtest-all.cc -o CMakeFiles\gtest.dir\gtest-all.cc.s
 
 # Object files for target gtest
 gtest_OBJECTS = \

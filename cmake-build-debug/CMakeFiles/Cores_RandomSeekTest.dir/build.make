@@ -85,6 +85,7 @@ RandomSeekTest.exe: D:/MinGW/lib/libboost_date_time.a
 RandomSeekTest.exe: D:/MinGW/lib/libboost_filesystem.a
 RandomSeekTest.exe: D:/MinGW/lib/libboost_iostreams.a
 RandomSeekTest.exe: D:/MinGW/lib/libboost_regex.a
+RandomSeekTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 RandomSeekTest.exe: CMakeFiles/Cores_RandomSeekTest.dir/linklibs.rsp
 RandomSeekTest.exe: CMakeFiles/Cores_RandomSeekTest.dir/objects1.rsp
 RandomSeekTest.exe: CMakeFiles/Cores_RandomSeekTest.dir/link.txt

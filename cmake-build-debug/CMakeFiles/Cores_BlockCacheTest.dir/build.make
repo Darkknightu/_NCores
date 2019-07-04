@@ -85,6 +85,7 @@ BlockCacheTest.exe: D:/MinGW/lib/libboost_date_time.a
 BlockCacheTest.exe: D:/MinGW/lib/libboost_filesystem.a
 BlockCacheTest.exe: D:/MinGW/lib/libboost_iostreams.a
 BlockCacheTest.exe: D:/MinGW/lib/libboost_regex.a
+BlockCacheTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 BlockCacheTest.exe: CMakeFiles/Cores_BlockCacheTest.dir/linklibs.rsp
 BlockCacheTest.exe: CMakeFiles/Cores_BlockCacheTest.dir/objects1.rsp
 BlockCacheTest.exe: CMakeFiles/Cores_BlockCacheTest.dir/link.txt

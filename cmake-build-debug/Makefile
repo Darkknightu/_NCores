@@ -472,6 +472,19 @@ Cores_TestTypes/fast:
 .PHONY : Cores_TestTypes/fast
 
 #=============================================================================
+# Target rules for targets named Cores_TestSchema
+
+# Build rule for target.
+Cores_TestSchema: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 Cores_TestSchema
+.PHONY : Cores_TestSchema
+
+# fast build rule for target.
+Cores_TestSchema/fast:
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/build
+.PHONY : Cores_TestSchema/fast
+
+#=============================================================================
 # Target rules for targets named Cores_btreeTestBuild
 
 # Build rule for target.
@@ -762,6 +775,7 @@ src/btree/BTreeEntry.cpp.obj:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/BTreeEntry.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/BTreeEntry.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/BTreeEntry.cpp.obj
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/BTreeEntry.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/BTreeEntry.cpp.obj
 .PHONY : src/btree/BTreeEntry.cpp.obj
 
@@ -774,6 +788,7 @@ src/btree/BTreeEntry.cpp.i:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/BTreeEntry.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/BTreeEntry.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/BTreeEntry.cpp.i
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/BTreeEntry.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/BTreeEntry.cpp.i
 .PHONY : src/btree/BTreeEntry.cpp.i
 
@@ -786,6 +801,7 @@ src/btree/BTreeEntry.cpp.s:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/BTreeEntry.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/BTreeEntry.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/BTreeEntry.cpp.s
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/BTreeEntry.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/BTreeEntry.cpp.s
 .PHONY : src/btree/BTreeEntry.cpp.s
 
@@ -798,6 +814,7 @@ src/btree/BTreeNode.cpp.obj:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/BTreeNode.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/BTreeNode.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/BTreeNode.cpp.obj
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/BTreeNode.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/BTreeNode.cpp.obj
 .PHONY : src/btree/BTreeNode.cpp.obj
 
@@ -810,6 +827,7 @@ src/btree/BTreeNode.cpp.i:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/BTreeNode.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/BTreeNode.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/BTreeNode.cpp.i
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/BTreeNode.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/BTreeNode.cpp.i
 .PHONY : src/btree/BTreeNode.cpp.i
 
@@ -822,6 +840,7 @@ src/btree/BTreeNode.cpp.s:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/BTreeNode.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/BTreeNode.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/BTreeNode.cpp.s
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/BTreeNode.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/BTreeNode.cpp.s
 .PHONY : src/btree/BTreeNode.cpp.s
 
@@ -834,6 +853,7 @@ src/btree/SerialBTree.cpp.obj:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/SerialBTree.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/SerialBTree.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/SerialBTree.cpp.obj
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/SerialBTree.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/SerialBTree.cpp.obj
 .PHONY : src/btree/SerialBTree.cpp.obj
 
@@ -846,6 +866,7 @@ src/btree/SerialBTree.cpp.i:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/SerialBTree.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/SerialBTree.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/SerialBTree.cpp.i
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/SerialBTree.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/SerialBTree.cpp.i
 .PHONY : src/btree/SerialBTree.cpp.i
 
@@ -858,6 +879,7 @@ src/btree/SerialBTree.cpp.s:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/SerialBTree.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/SerialBTree.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/SerialBTree.cpp.s
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/SerialBTree.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/SerialBTree.cpp.s
 .PHONY : src/btree/SerialBTree.cpp.s
 
@@ -870,6 +892,7 @@ src/btree/cache/cache.cpp.obj:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/cache/cache.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/cache/cache.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/cache/cache.cpp.obj
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/cache/cache.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/cache/cache.cpp.obj
 .PHONY : src/btree/cache/cache.cpp.obj
 
@@ -882,6 +905,7 @@ src/btree/cache/cache.cpp.i:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/cache/cache.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/cache/cache.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/cache/cache.cpp.i
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/cache/cache.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/cache/cache.cpp.i
 .PHONY : src/btree/cache/cache.cpp.i
 
@@ -894,6 +918,7 @@ src/btree/cache/cache.cpp.s:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/cache/cache.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/cache/cache.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/cache/cache.cpp.s
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/cache/cache.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/cache/cache.cpp.s
 .PHONY : src/btree/cache/cache.cpp.s
 
@@ -906,6 +931,7 @@ src/btree/misc/global.cpp.obj:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/misc/global.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/misc/global.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/misc/global.cpp.obj
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/misc/global.cpp.obj
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/misc/global.cpp.obj
 .PHONY : src/btree/misc/global.cpp.obj
 
@@ -918,6 +944,7 @@ src/btree/misc/global.cpp.i:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/misc/global.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/misc/global.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/misc/global.cpp.i
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/misc/global.cpp.i
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/misc/global.cpp.i
 .PHONY : src/btree/misc/global.cpp.i
 
@@ -930,6 +957,7 @@ src/btree/misc/global.cpp.s:
 	$(MAKE) -f CMakeFiles\Cores_btreeTestSearch.dir\build.make CMakeFiles/Cores_btreeTestSearch.dir/src/btree/misc/global.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTest.dir\build.make CMakeFiles/Cores_btreeTest.dir/src/btree/misc/global.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_TestTypes.dir\build.make CMakeFiles/Cores_TestTypes.dir/src/btree/misc/global.cpp.s
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/src/btree/misc/global.cpp.s
 	$(MAKE) -f CMakeFiles\Cores_btreeTestBuild.dir\build.make CMakeFiles/Cores_btreeTestBuild.dir/src/btree/misc/global.cpp.s
 .PHONY : src/btree/misc/global.cpp.s
 
@@ -1878,6 +1906,33 @@ test/lsmtree/LSMBloomFilterTest.cpp.s:
 	$(MAKE) -f CMakeFiles\Cores_LSMBloomFilterTest.dir\build.make CMakeFiles/Cores_LSMBloomFilterTest.dir/test/lsmtree/LSMBloomFilterTest.cpp.s
 .PHONY : test/lsmtree/LSMBloomFilterTest.cpp.s
 
+test/metadata/parser/TestSchema.obj: test/metadata/parser/TestSchema.cpp.obj
+
+.PHONY : test/metadata/parser/TestSchema.obj
+
+# target to build an object file
+test/metadata/parser/TestSchema.cpp.obj:
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/test/metadata/parser/TestSchema.cpp.obj
+.PHONY : test/metadata/parser/TestSchema.cpp.obj
+
+test/metadata/parser/TestSchema.i: test/metadata/parser/TestSchema.cpp.i
+
+.PHONY : test/metadata/parser/TestSchema.i
+
+# target to preprocess a source file
+test/metadata/parser/TestSchema.cpp.i:
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/test/metadata/parser/TestSchema.cpp.i
+.PHONY : test/metadata/parser/TestSchema.cpp.i
+
+test/metadata/parser/TestSchema.s: test/metadata/parser/TestSchema.cpp.s
+
+.PHONY : test/metadata/parser/TestSchema.s
+
+# target to generate assembly for a file
+test/metadata/parser/TestSchema.cpp.s:
+	$(MAKE) -f CMakeFiles\Cores_TestSchema.dir\build.make CMakeFiles/Cores_TestSchema.dir/test/metadata/parser/TestSchema.cpp.s
+.PHONY : test/metadata/parser/TestSchema.cpp.s
+
 test/metadata/parser/TestTypes.obj: test/metadata/parser/TestTypes.cpp.obj
 
 .PHONY : test/metadata/parser/TestTypes.obj
@@ -2155,6 +2210,7 @@ help:
 	@echo ... Cores_btreeTest
 	@echo ... Cores_LSMBloomFilterTest
 	@echo ... Cores_TestTypes
+	@echo ... Cores_TestSchema
 	@echo ... Cores_btreeTestBuild
 	@echo ... Cores_LibblBloomFilterBasicTest
 	@echo ... test
@@ -2292,6 +2348,9 @@ help:
 	@echo ... test/lsmtree/LSMBloomFilterTest.obj
 	@echo ... test/lsmtree/LSMBloomFilterTest.i
 	@echo ... test/lsmtree/LSMBloomFilterTest.s
+	@echo ... test/metadata/parser/TestSchema.obj
+	@echo ... test/metadata/parser/TestSchema.i
+	@echo ... test/metadata/parser/TestSchema.s
 	@echo ... test/metadata/parser/TestTypes.obj
 	@echo ... test/metadata/parser/TestTypes.i
 	@echo ... test/metadata/parser/TestTypes.s

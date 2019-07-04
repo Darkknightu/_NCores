@@ -85,6 +85,7 @@ BlockManagerTest.exe: D:/MinGW/lib/libboost_date_time.a
 BlockManagerTest.exe: D:/MinGW/lib/libboost_filesystem.a
 BlockManagerTest.exe: D:/MinGW/lib/libboost_iostreams.a
 BlockManagerTest.exe: D:/MinGW/lib/libboost_regex.a
+BlockManagerTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 BlockManagerTest.exe: CMakeFiles/Cores_BlockManagerTest.dir/linklibs.rsp
 BlockManagerTest.exe: CMakeFiles/Cores_BlockManagerTest.dir/objects1.rsp
 BlockManagerTest.exe: CMakeFiles/Cores_BlockManagerTest.dir/link.txt

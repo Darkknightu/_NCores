@@ -26,6 +26,7 @@ D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_FDBTreeGen.dir
 D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_btreeTest.dir
 D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_LSMBloomFilterTest.dir
 D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_TestTypes.dir
+D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_TestSchema.dir
 D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_btreeTestBuild.dir
 D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/Cores_LibblBloomFilterBasicTest.dir
 D:/Science/avro_c++/_NCores/cmake-build-debug/CMakeFiles/test.dir

@@ -85,6 +85,7 @@ lz4CodecTest.exe: D:/MinGW/lib/libboost_date_time.a
 lz4CodecTest.exe: D:/MinGW/lib/libboost_filesystem.a
 lz4CodecTest.exe: D:/MinGW/lib/libboost_iostreams.a
 lz4CodecTest.exe: D:/MinGW/lib/libboost_regex.a
+lz4CodecTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 lz4CodecTest.exe: CMakeFiles/Cores_lz4CodecTest.dir/linklibs.rsp
 lz4CodecTest.exe: CMakeFiles/Cores_lz4CodecTest.dir/objects1.rsp
 lz4CodecTest.exe: CMakeFiles/Cores_lz4CodecTest.dir/link.txt

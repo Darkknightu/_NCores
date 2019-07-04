@@ -85,6 +85,7 @@ BlockAppendTest.exe: D:/MinGW/lib/libboost_date_time.a
 BlockAppendTest.exe: D:/MinGW/lib/libboost_filesystem.a
 BlockAppendTest.exe: D:/MinGW/lib/libboost_iostreams.a
 BlockAppendTest.exe: D:/MinGW/lib/libboost_regex.a
+BlockAppendTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 BlockAppendTest.exe: CMakeFiles/Cores_BlockAppendTest.dir/linklibs.rsp
 BlockAppendTest.exe: CMakeFiles/Cores_BlockAppendTest.dir/objects1.rsp
 BlockAppendTest.exe: CMakeFiles/Cores_BlockAppendTest.dir/link.txt

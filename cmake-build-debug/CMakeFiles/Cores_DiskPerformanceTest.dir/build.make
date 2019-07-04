@@ -85,6 +85,7 @@ DiskPerformanceTest.exe: D:/MinGW/lib/libboost_date_time.a
 DiskPerformanceTest.exe: D:/MinGW/lib/libboost_filesystem.a
 DiskPerformanceTest.exe: D:/MinGW/lib/libboost_iostreams.a
 DiskPerformanceTest.exe: D:/MinGW/lib/libboost_regex.a
+DiskPerformanceTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 DiskPerformanceTest.exe: CMakeFiles/Cores_DiskPerformanceTest.dir/linklibs.rsp
 DiskPerformanceTest.exe: CMakeFiles/Cores_DiskPerformanceTest.dir/objects1.rsp
 DiskPerformanceTest.exe: CMakeFiles/Cores_DiskPerformanceTest.dir/link.txt

@@ -3,10 +3,13 @@ project(Cores)
 enable_language(CXX)
 enable_language(C)
 enable_language(ASM)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 if (CMAKE_BUILD_TYPE STREQUAL Relese)
     set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall")
 endif ()
+
+include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/fused-src)
+add_subdirectory(third-party/gtest-1.7.0/fused-src/gtest)
 
 if ((CMAKE_SYSTEM_NAME MATCHES "Linux") OR (CMAKE_SYSTEM_NAME MATCHES "Darwin"))
     set(PTHREAD -lpthread)
@@ -27,9 +30,6 @@ else ()
     link_directories(${Boost_LIBRARY_DIR})
 endif ()
 
-include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/fused-src)
-add_subdirectory(third-party/gtest-1.7.0/fused-src/gtest)
-
 find_package(Threads)
 
 if (WITH_SNAPPY)
@@ -41,7 +41,7 @@ endif ()
 
 #option(WITH_ZLIB "build with zlib" OFF)
 if (WITH_ZLIB)
-    set(ZLIB_INCLUDE_DIR D:/MinGW/include)
+    set(ZLIB_INCLUDE_DIR D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/include)
     find_package(zlib REQUIRED)
     add_definitions(-DZLIB)
     include_directories(${ZLIB_INCLUDE_DIR})
@@ -73,9 +73,9 @@ if (WITH_LZ4)
         add_definitions(-DLZ4)
         list(APPEND THIRDPARTY_LIBS ${LZ4_LIBRARIES})
     else ()
-        set(LZ4_DIR D:/MinGW/)
-        set(LZ4_INCLUDE_DIR D:/MinGW/include)
-        #set(LZ4_LIBRARIES D:/MinGW/lib/liblz4.a)
+        set(LZ4_DIR D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw)
+        set(LZ4_INCLUDE_DIR D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/include)
+        set(LZ4_LIBRARIES D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a)
     endif ()
 endif ()
 
@@ -257,7 +257,6 @@ if (WITH_BLOCK_TESTS)
             test/block/BlockAppendTest.cpp
             test/io/codec/lz4CodecTest.cpp
             test/io/RandomSeekTest.cpp
-
             )
 endif ()
 
@@ -265,6 +264,7 @@ option(WITH_TESTS "build with tests" ON)
 if (WITH_TESTS)
     set(TESTS
             test/metadata/parser/TestTypes.cpp
+            test/metadata/parser/TestSchema.cpp
             test/btree/btreeTestBuild.cpp
             test/btree/btreeTestSearch.cpp
             )

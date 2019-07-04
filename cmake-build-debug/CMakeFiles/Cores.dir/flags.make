@@ -9,7 +9,7 @@ C_DEFINES = -DCORES_SUPPORT_THREAD_LOCAL -DHAVE_PCLMUL -DHAVE_SSE42
 
 C_INCLUDES = @CMakeFiles/Cores.dir/includes_C.rsp
 
-CXX_FLAGS =  -msse4.2 -m64 -mpclmul -msse4.2 -m64 -mpclmul -g   -std=gnu++11
+CXX_FLAGS =  -msse4.2 -m64 -mpclmul -msse4.2 -m64 -mpclmul -g   -std=gnu++17
 
 CXX_DEFINES = -DCORES_SUPPORT_THREAD_LOCAL -DHAVE_PCLMUL -DHAVE_SSE42
 

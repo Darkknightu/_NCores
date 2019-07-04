@@ -85,6 +85,7 @@ DiskAnsyncIOTest.exe: D:/MinGW/lib/libboost_date_time.a
 DiskAnsyncIOTest.exe: D:/MinGW/lib/libboost_filesystem.a
 DiskAnsyncIOTest.exe: D:/MinGW/lib/libboost_iostreams.a
 DiskAnsyncIOTest.exe: D:/MinGW/lib/libboost_regex.a
+DiskAnsyncIOTest.exe: D:/cygwin64/usr/x86_64-w64-mingw32/sys-root/mingw/lib/liblz4.a
 DiskAnsyncIOTest.exe: CMakeFiles/Cores_DiskAnsyncIOTest.dir/linklibs.rsp
 DiskAnsyncIOTest.exe: CMakeFiles/Cores_DiskAnsyncIOTest.dir/objects1.rsp
 DiskAnsyncIOTest.exe: CMakeFiles/Cores_DiskAnsyncIOTest.dir/link.txt

@@ -1,20 +1,4 @@
 "D:\cpp\CLion\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=D:/MinGW/bin/make.exe -DCMAKE_C_COMPILER=D:/MinGW/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/MinGW/bin/g++.exe -G "CodeBlocks - MinGW Makefiles" D:\Science\avro_c++\_NCores
--- The C compiler identification is GNU 8.2.0
--- The CXX compiler identification is GNU 8.2.0
--- Check for working C compiler: D:/MinGW/bin/gcc.exe
--- Check for working C compiler: D:/MinGW/bin/gcc.exe -- works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Detecting C compile features
--- Detecting C compile features - done
--- Check for working CXX compiler: D:/MinGW/bin/g++.exe
--- Check for working CXX compiler: D:/MinGW/bin/g++.exe -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- The ASM compiler identification is GNU
--- Found assembler: D:/MinGW/bin/gcc.exe
 Windows cygwin
 -- Boost version: 1.69.0
 -- Found the following Boost libraries:
@@ -23,15 +7,6 @@ Windows cygwin
 --   filesystem
 --   iostreams
 --   regex
--- Looking for pthread.h
--- Looking for pthread.h - found
--- Looking for pthread_create
--- Looking for pthread_create - found
--- Found Threads: TRUE  
--- Performing Test HAVE_SSE42
--- Performing Test HAVE_SSE42 - Success
--- Performing Test HAVE_THREAD_LOCAL
--- Performing Test HAVE_THREAD_LOCAL - Success
 -- Configuring done
 -- Generating done
 -- Build files have been written to: D:/Science/avro_c++/_NCores/cmake-build-debug

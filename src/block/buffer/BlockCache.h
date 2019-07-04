@@ -11,6 +11,7 @@
 #include "CoresRandomAccessor.h"
 
 using namespace std;
+
 namespace codec {
     template<class T>
     void encode(T *_cache, int _idx, T _value) {
@@ -33,10 +34,17 @@ namespace codec {
 
     template<>
     char *decode(char **_cache, int _idx) {
-        char *tmp = (char *) _cache + _idx;
-        short length = *(short *) tmp;
-        tmp += 2;
-        return (char *) tmp;
+//        char *tmp = (char *) _cache + _idx;
+//        short length = *(short *) tmp;
+//        tmp += 2;
+//        return (char *) _cache;
+        int index=0;
+        string str;
+        for (int i = 0; i <_idx ; ++i) {
+            str=(char*)_cache+index;
+            index+=str.length()+1;
+        }
+        return (char*)_cache+index;
     }
 
 }
@@ -67,7 +75,7 @@ public:
                                                                               _offset(begin), _count(count),
                                                                               _limit(limit / (sizeof(type))),
                                                                               _cursor(0) {
-//        bigseek(fp, 0, SEEK_END);F
+//        bigseek(fp, 0, SEEK_END);
 //        _total = bigtell(fp);
 //        bigseek(fp, _offset, SEEK_SET);
     }
@@ -76,9 +84,9 @@ public:
                                                               _offset(0), _count(0),
                                                               _limit(limit),
                                                               _cursor(0) {
-        bigseek(fp, 0, SEEK_END);
-        _total = bigtell(fp);
-        bigseek(fp, _offset, SEEK_SET);
+//        bigseek(fp, 0, SEEK_END);
+//        _total = bigtell(fp);
+//        bigseek(fp, _offset, SEEK_SET);
     }
 
     void set(int idx, type value) {
@@ -112,7 +120,7 @@ public:
         return _cache;
     }
 
-        type *loadFromFile() {
+    type *loadFromFile() {
         fread(_cache, sizeof(type), _limit, _fp);
         return _cache;
     }
