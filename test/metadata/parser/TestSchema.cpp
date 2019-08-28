@@ -54,6 +54,9 @@ static NodePtr makePrimitive(const std::string &t) {
 
 static bool isFullName(const string &s) {
     return s.find('.') != string::npos;
+
+    return s.find('.') == string::npos;
+
 }
 
 static Name getName(const string &name, const string &ns) {
@@ -380,6 +383,38 @@ static NodePtr makeFixedNode(const Entity &e,
                                  asSingleAttribute(v)));
 }
 
+
+
+class NodeArray : public NodeImplArray
+{
+public:
+
+    NodeArray() :
+            NodeImplArray(AVRO_ARRAY)
+    { }
+
+    explicit NodeArray(const SingleLeaf &items) :
+            NodeImplArray(AVRO_ARRAY, NoName(), items, NoLeafNames(), NoSize())
+    { }
+
+//SchemaResolution resolve(const Node &reader)  const;
+
+//void printJson(std::ostream &os, int depth) const;
+
+    bool isValid() const {
+        return (leafAttributes_.size() == 1);
+    }
+};
+
+
+static NodePtr makeArrayNode(const Entity& e, const Object& m,
+                             SymbolTable& st, const string& ns)
+{
+    Object::const_iterator it = findField(e, m, "items");
+    return NodePtr(new NodeArray(asSingleAttribute(
+            makeNode(it->second, st, ns))));
+}
+
 static NodePtr makeNode(const Entity &e, const Object &m,
                         SymbolTable &st, const string &ns) {
     const string &type = getStringField(e, m, "type");
@@ -400,9 +435,9 @@ static NodePtr makeNode(const Entity &e, const Object &m,
             st[nm] = result;
         }
         return result;
-    } /*else if (type == "array") {
+    } else if (type == "array") {
         return makeArrayNode(e, m, st, ns);
-    } else if (type == "map") {
+    } /*else if (type == "map") {
         return makeMapNode(e, m, st, ns);
     }*/
     //throw Exception(boost::format("Unknown type definition: %1%")
@@ -420,10 +455,6 @@ static NodePtr makeNode(const Entity &e, SymbolTable &st, const string &ns) {
             //default:
             //throw Exception(boost::format("Invalid Avro type: %1%") % e.toString());
     }
-}
-
-void testrecord(){
-    any test;
 }
 
 void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c)
@@ -533,6 +564,10 @@ public:
         return blocks;
     }
 
+    BlockReader getBlock(int b){
+        return blocks[b];
+    }
+
     int getblockCount(){
         return blockCount;
     }
@@ -562,6 +597,10 @@ public:
 
     vector<ColumnReader> getColumns(){
         return columns;
+    }
+
+    ColumnReader getColumn(int c){
+        return columns[c];
     }
 
     string getMetaData(){
@@ -917,7 +956,7 @@ void testFileReader(){
     file_in.close();
     FILE* fpr=fopen("./fileout.dat","rb");
     int blocksize=1024;
-    for (int j = 0; j <headreader->getColumnCount(); ++j) {
+    for (int j = 0; j <1; ++j) {
         int count=0;
         fseek(fpr,headreader->getColumns()[j].getOffset(), SEEK_SET);
         switch (r[0]->fieldAt(j).type()){
@@ -936,13 +975,18 @@ void testFileReader(){
             case AVRO_LONG:{
                 PrimitiveBlock<long> *longBlock = new PrimitiveBlock<long>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
+                vector<BlockReader> brs=headreader->getColumns()[j].getBlocks();
+                Tracer tracer;
+                tracer.startTime();
                 for (int k = 0; k < bcount; k++) {
                     longBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
-                    for (int i = 0; i < blocksize / sizeof(long); i++) {
-                        count++;
+                    int rcount=brs[k].getRowcount();
+                    for (int i = 0; i < rcount; i++) {
+                        //count++;
+                        longBlock->get(i);
                     }
                 }
+                cout << "Long: " << tracer.getRunTime() << "\t" << endl;
                 delete longBlock;
                 break;}
             case AVRO_DOUBLE:{
@@ -999,8 +1043,35 @@ void testFileReader(){
         }
     }}
 
+    void testSchema(){
+        fstream schema_f("./nest.txt", schema_f.binary |  schema_f.in|  schema_f.out );
+        ostringstream buf;
+        char ch;
+        while(buf&&schema_f.get(ch))
+            buf.put(ch);
+        string s_schema=buf.str();
+        char* schema =const_cast<char*>(s_schema.c_str());
+        JsonParser test;
+        test.init(schema);
+        Entity e_test = readEntity(test);
+        SymbolTable st;
+        NodePtr n = makeNode(e_test, st, "");
+        ValidSchema* vschema=new ValidSchema(n);
+        GenericDatum c;
+        c = GenericDatum(vschema->root());
+        GenericRecord* r[1]={NULL};
+        for(int i=0;i<1;i++){
+            r[i]=new GenericRecord(c.value<GenericRecord>());
+        }
+
+
+
+}
+
+
 int main() {
-    testFILEWRITER();
-    testFileReader();
+//    testFILEWRITER();
+//    testFileReader();
+    testSchema();
     return 0;
 }
