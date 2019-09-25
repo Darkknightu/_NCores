@@ -496,6 +496,10 @@ public:
         return rowCount;
     }
 
+    int getRowcount() const{
+        return rowCount;
+    }
+
     void read(istream& is){
         is.read((char*)&this->rowCount, sizeof(this->rowCount));
         is.read((char*)&this->size, sizeof(this->size));
@@ -533,6 +537,15 @@ public:
         return blocks;
     }
 
+    
+    const BlockReader& getBlock(int b){
+        return blocks[b];
+    }
+
+    const BlockReader& getBlock(int b) const{
+        return blocks[b];
+    }
+
     int getblockCount(){
         return blockCount;
     }
@@ -552,6 +565,10 @@ class HeadReader{
 public:
     HeadReader(){}
 
+    HeadReader(istream& is){
+    readHeader(is);
+}
+
     int getRowCount(){
         return rowCount;
     }
@@ -562,6 +579,10 @@ public:
 
     vector<ColumnReader> getColumns(){
         return columns;
+    }
+
+    const ColumnReader& getColumn(int c){
+        return columns[c];
     }
 
     string getMetaData(){
@@ -799,7 +820,7 @@ void testFILE(){
 }
 
 void testFILEWRITER(){
-
+    cout<<"start schema reading"<<endl;
     fstream schema_f("./single.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
     ostringstream buf;
     char ch;
@@ -820,6 +841,7 @@ void testFILEWRITER(){
         r[i]=new GenericRecord(c.value<GenericRecord>());
     }
     //initialize the schema and record
+    cout<<"end schema reading"<<endl;
 
     char* filename=(char*)malloc(strlen("./file")+6);
     char* headname=(char*)malloc(strlen("./file")+10);
@@ -845,9 +867,12 @@ void testFILEWRITER(){
         headsinfo[k]=new int[1024];
     }
     //initialize the files and variables
+    cout<<"end file initialization"<<endl;
+
 
     int* strl=new int[culnum];
     fstream fs("lineitem.tbl",ios::in);
+    cout<<"file spliting"<<endl;
     for (std::string line; std::getline(fs, line); ) {
         ReadRecord(*r[0],line);
         RecordWritetoFile(culnum,r[0],index,hindex,offsets,blockcounts,buffers,files,
@@ -869,7 +894,7 @@ void testFILEWRITER(){
     }
     //    write to the split_files
 
-
+    cout<<"files merging"<<endl;
     for (int k = 0; k < culnum; ++k) {
         sprintf(filename,"%s%d%s","./file",k,".dat");
         sprintf(headname,"%s%d%s","./file",k,".head");
@@ -891,6 +916,7 @@ void testFILEWRITER(){
 
 void testFileReader(){
 
+    cout<<"schema reading"<<endl;
     fstream schema_f("./single.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
     ostringstream buf;
     char ch;
@@ -912,86 +938,139 @@ void testFileReader(){
     }
     ifstream file_in;
     file_in.open("./fileout.dat", ios_base::in|ios_base::binary);
-    unique_ptr<HeadReader> headreader(new HeadReader());
-    headreader->readHeader(file_in);
+//    unique_ptr<HeadReader> headreader(new HeadReader());
+//    headreader->readHeader(file_in);
+    HeadReader* headreader=new HeadReader(file_in);
     file_in.close();
     FILE* fpr=fopen("./fileout.dat","rb");
     int blocksize=1024;
-    for (int j = 0; j <headreader->getColumnCount(); ++j) {
+    for (int j = 0; j<1; ++j) {
         int count=0;
         fseek(fpr,headreader->getColumns()[j].getOffset(), SEEK_SET);
         switch (r[0]->fieldAt(j).type()){
             case AVRO_INT:{
+		cout<<"INT reading"<<endl;
                 PrimitiveBlock<int> *intBlock = new PrimitiveBlock<int>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
                 for (int k = 0; k < bcount; k++) {
                     intBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
-                    for (int i = 0; i < blocksize / sizeof(long); i++) {
-                        count++;
+                    int rcount=headreader->getColumn(j).getBlock(k).getRowcount();
+                    for (int i = 0; i < rcount; i++) {
+//			intBlock->get(i);
+//                        count++;
                     }
                 }
                 delete intBlock;
                 break;}
             case AVRO_LONG:{
+		cout<<"LONG reading"<<endl;
                 PrimitiveBlock<long> *longBlock = new PrimitiveBlock<long>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
+                cout<<"block counts:"<<bcount<<endl;
+		int rcount=1024/sizeof(long);
+		Tracer tracer1;
+		tracer1.startTime();
+		for (int k = 0; k < bcount; k++) {
+		    //cout<<k<<endl;
+                    longBlock->loadFromFile();
+//                    for (int i = 0; i < rcount; i++) {
+//                        longBlock->get(i);
+//                    }
+                }
+		cout<<"only load and judge time"<<tracer1.getRunTime()<<endl;
+		fseek(fpr,headreader->getColumns()[j].getOffset(), SEEK_SET);
+
+                Tracer tracer2;
+                tracer2.startTime();
                 for (int k = 0; k < bcount; k++) {
                     longBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
-                    for (int i = 0; i < blocksize / sizeof(long); i++) {
-                        count++;
+                    int rcount=headreader->getColumn(j).getBlock(k).getRowcount();
+                    for (int i = 0; i < rcount; i++) {
+                    longBlock->get(i);
                     }
                 }
+                cout << "plus get get time:" << tracer2.getRunTime() << "\t" << endl;
+
+
+                fseek(fpr,headreader->getColumns()[j].getOffset(), SEEK_SET);	
+		vector<BlockReader> brs=headreader->getColumns()[j].getBlocks();	
+                Tracer tracer3;
+                tracer3.startTime();
+                for (int k = 0; k < bcount; k++) {
+                    longBlock->loadFromFile();
+                    int rcount=brs[k].getRowcount();
+                    for (int i = 0; i < rcount; i++) {
+//                        longBlock->get(i);
+                    }
+                }
+                cout << "direct vector time: " << tracer3.getRunTime() << "\t" << endl;
+/*
+                fseek(fpr,headreader->getColumns()[j].getOffset(), SEEK_SET);
+                Tracer tracer4;
+		int rcount=1024/sizeof(long);
+                tracer4.startTime();
+                for (int k = 0; k < bcount; k++) {
+                    longBlock->loadFromFile();
+                    for (int i = 0; i < rcount; i++) {
+                        longBlock->get(i);
+                    }
+                }
+                cout << "without load time: " << tracer4.getRunTime() << "\t" << endl;
+*/
                 delete longBlock;
                 break;}
             case AVRO_DOUBLE:{
+		cout<<"DOUBLE reading"<<endl;
                 PrimitiveBlock<double> *doubleBlock = new PrimitiveBlock<double>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
                 for (int k = 0; k < bcount; k++) {
                     doubleBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
-                    for (int i = 0; i < blocksize / sizeof(long); i++) {
-                        count++;
+                    int rcount=headreader->getColumn(j).getBlock(k).getRowcount();
+                    for (int i = 0; i < blocksize / rcount; i++) {
+//			doubleBlock->get(i);
+//                        count++;
                     }
                 }
                 delete doubleBlock;
                 break;}
             case AVRO_FLOAT:{
+		cout<<"FLOAT reading"<<endl;
                 PrimitiveBlock<float> *floatBlock = new PrimitiveBlock<float>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
                 for (int k = 0; k < bcount; k++) {
                     floatBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
-                    for (int i = 0; i < blocksize / sizeof(long); i++) {
-                        count++;
+                    int rcount=headreader->getColumn(j).getBlock(k).getRowcount();
+                    for (int i = 0; i < rcount; i++) {
+//			floatBlock->get(i);
+//                        count++;
                     }
                 }
                 delete floatBlock;
                 break;}
             case AVRO_BYTES:{
+		cout<<"BYTES reading"<<endl;
                 PrimitiveBlock<char> *byteBlock = new PrimitiveBlock<char>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
                 for (int k = 0; k < bcount; k++) {
                     byteBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
+                    int rcount=headreader->getColumn(j).getBlock(k).getRowcount();
                     for (int i = 0; i < rcount; i++) {
-                        byteBlock->get(i);
-                        count++;
+//                        byteBlock->get(i);
+//                        count++;
                     }
                 }
                 delete byteBlock;
                 break;}
             case AVRO_STRING:{
+		cout<<"STRING reading"<<endl;
                 PrimitiveBlock<char*> *stringBlock = new PrimitiveBlock<char*>(fpr, 0L, 0, blocksize);
                 int bcount=headreader->getColumns()[j].getblockCount();
                 for (int k = 0; k < bcount; k++) {
                     stringBlock->loadFromFile();
-                    int rcount=headreader->getColumns()[j].getBlocks()[k].getRowcount();
+                    int rcount=headreader->getColumn(j).getBlock(k).getRowcount();
                     for (int i = 0; i < rcount; i++) {
-                        stringBlock->get(i);if (j==15)
-                        cout<<stringBlock->get(i)<<endl;
-                        count++;
+//                        stringBlock->get(i);
+//                        count++;
                     }
                 }
                 delete stringBlock;
@@ -1000,7 +1079,7 @@ void testFileReader(){
     }}
 
 int main() {
-    testFILEWRITER();
+    //testFILEWRITER();
     testFileReader();
     return 0;
 }

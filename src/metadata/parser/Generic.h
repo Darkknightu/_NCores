@@ -87,7 +87,7 @@ public:
     GenericDatum(int32_t v) : type_(AVRO_INT), value_(v) {}
 
     /// Makes a new AVRO_LONG datum whose value is of type int64_t.
-    GenericDatum(int64_t v) : type_(AVRO_LONG), value_(v) {}
+   // GenericDatum(int64_t v) : type_(AVRO_LONG), value_(v) {}
 
     GenericDatum(long v) : type_(AVRO_LONG), value_(v) {}
 
