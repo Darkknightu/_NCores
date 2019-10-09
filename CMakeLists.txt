@@ -136,6 +136,7 @@ include_directories(src/metadata/schema)
 include_directories(src/metadata/column)
 include_directories(src/metadata/parser)
 include_directories(src/metadata/record)
+include_directories(src/io/file)
 include_directories(src/utils)
 
 set(SOURCE

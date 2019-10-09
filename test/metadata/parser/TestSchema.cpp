@@ -16,6 +16,7 @@
 #include "Schema.h"
 #include "BlockCache.h"
 #include "utils.h"
+#include "BatchFileWriter.h"
 
 class Node;
 
@@ -523,6 +524,10 @@ public:
         os.write((char *)size, sizeof(size));
     }
 
+    int getOffset(){
+        return lengthOffset;
+    }
+
     int getRowcount(){
         return rowCount;
     }
@@ -564,7 +569,11 @@ public:
         return blocks;
     }
 
-    BlockReader getBlock(int b){
+    BlockReader& getBlock(int b){
+        return blocks[b];
+    }
+
+    const BlockReader& getBlock(int b) const{
         return blocks[b];
     }
 
@@ -591,6 +600,10 @@ public:
         return rowCount;
     }
 
+    int getBlockSize(){
+        return blockSize;
+    }
+
     int getColumnCount(){
         return columnCount;
     }
@@ -599,7 +612,7 @@ public:
         return columns;
     }
 
-    ColumnReader getColumn(int c){
+    ColumnReader& getColumn(int c){
         return columns[c];
     }
 
@@ -615,7 +628,7 @@ public:
         is.read((char*)&this->blockSize, sizeof(this->blockSize));
         is.read((char*)&this->rowCount, sizeof(this->rowCount));
         is.read((char*)&this->columnCount, sizeof(this->columnCount));
-        getline(is,metaData);
+        //getline(is,metaData);
 
         unique_ptr<vector<ColumnReader>> columns( new vector<ColumnReader>());
         for (int i = 0; i <columnCount ; ++i) {
@@ -839,7 +852,7 @@ void testFILE(){
 
 void testFILEWRITER(){
 
-    fstream schema_f("./single.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
+    fstream schema_f("./nest.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
     ostringstream buf;
     char ch;
     while(buf&&schema_f.get(ch))
@@ -854,15 +867,15 @@ void testFILEWRITER(){
     ValidSchema* vschema=new ValidSchema(n);
     GenericDatum c;
     c = GenericDatum(vschema->root());
-    GenericRecord* r[1]={NULL};
-    for(int i=0;i<1;i++){
-        r[i]=new GenericRecord(c.value<GenericRecord>());
-    }
+    GenericRecord* r[2]={NULL};
+    r[0]=new GenericRecord(c.value<GenericRecord>());
+    c=GenericDatum(r[0]->fieldAt(9).value<GenericArray>().schema()->leafAt(0));
+    r[1]=new GenericRecord(c.value<GenericRecord>());
     //initialize the schema and record
 
     char* filename=(char*)malloc(strlen("./file")+6);
     char* headname=(char*)malloc(strlen("./file")+10);
-    int culnum=r[0]->fieldCount();
+    int culnum=r[0]->fieldCount()+r[1]->fieldCount();
     FILE** files=(FILE**)(malloc(culnum*sizeof(FILE*)));
     FILE** heads=(FILE**)(malloc(culnum*sizeof(FILE*)));
     char** buffers=(char**)(malloc(culnum*sizeof(char*)));
@@ -871,6 +884,8 @@ void testFILEWRITER(){
     int* hindex=new int[culnum];
     int* offsets=new int[culnum];
     int* blockcounts=new int[culnum];
+
+
     memset( index , 0 , culnum*sizeof(int) );
     memset( hindex , 0 , culnum*sizeof(int) );
     memset( offsets , 0 , culnum*sizeof(int) );
@@ -883,7 +898,7 @@ void testFILEWRITER(){
         buffers[k]=new char[1024];
         headsinfo[k]=new int[1024];
     }
-    //initialize the files and variables
+    //initialize the files and variables0
 
     int* strl=new int[culnum];
     fstream fs("lineitem.tbl",ios::in);
@@ -1043,8 +1058,97 @@ void testFileReader(){
         }
     }}
 
-    void testSchema(){
-        fstream schema_f("./nest.txt", schema_f.binary |  schema_f.in|  schema_f.out );
+    void filesMerge(string file1,string file2, string path){
+        ifstream file_1;
+        file_1.open(file1+"/fileout.dat", ios_base::in|ios_base::binary);
+        unique_ptr<HeadReader> headreader1(new HeadReader());
+        headreader1->readHeader(file_1);
+        file_1.close();
+
+        ifstream file_2;
+        file_2.open(file2+"/fileout.dat", ios_base::in|ios_base::binary);
+        unique_ptr<HeadReader> headreader2(new HeadReader());
+        headreader2->readHeader(file_2);
+        file_2.close();
+
+        fstream fo;
+        int column_num=headreader1->getColumnCount()+headreader2->getColumnCount();
+        int blocksize=headreader1->getBlockSize();
+        fo.open(path+"/fileout.dat", ios_base::out | ios_base::binary);
+        long* foffsets=new long[column_num]();
+        int rowcount=headreader1->getRowCount();
+        fo.write((char *) &blocksize, sizeof(blocksize));
+        fo.write((char *) &rowcount, sizeof(rowcount));
+        fo.write((char *) &column_num, sizeof(column_num));
+        //fo << schema ;
+        //metadata
+        long* result=new long[column_num]();
+        for (int j = 0; j <headreader1->getColumnCount() ; ++j) {
+            int blockCount=headreader1->getColumn(j).getblockCount();
+            fo.write((char *) &blockCount, sizeof(int));
+            foffsets[j]=fo.tellg();
+            fo.write((char *) &foffsets[j], sizeof(long));
+            for (int i = 0; i < headreader1->getColumn(j).getblockCount(); ++i) {
+                int rowCount=headreader1->getColumn(j).getBlock(i).getRowcount();
+                int offset=headreader1->getColumn(j).getBlock(i).getOffset();
+                fo.write((char *) &(rowCount), sizeof (int));
+                fo.write((char *) &(offset), sizeof (int));
+            }
+        }
+        for (int j = 0; j <headreader2->getColumnCount() ; ++j) {
+            int blockCount=headreader2->getColumn(j).getblockCount();
+            fo.write((char *) &blockCount, sizeof(int));
+            foffsets[j+headreader1->getColumnCount()]=fo.tellg();
+            fo.write((char *) &foffsets[j+headreader1->getColumnCount()], sizeof(long));
+            for (int i = 0; i < headreader2->getColumn(j).getblockCount(); ++i) {
+                int rowCount=headreader2->getColumn(j).getBlock(i).getRowcount();
+                int offset=headreader2->getColumn(j).getBlock(i).getOffset();
+                fo.write((char *) &(rowCount), sizeof (int));
+                fo.write((char *) &(offset), sizeof (int));
+            }
+        }
+        result[0]=fo.tellg();
+        fo.close();
+        FILE* fp=fopen((path+"/fileout.dat").data(),"ab+");
+        char buffer[blocksize];
+        long* tmplong=(long*)buffer;
+        FILE* f1=fopen((file1+"/fileout.dat").data(),"rb");
+        fseek(f1,headreader1->getColumn(0).getOffset(),SEEK_SET);
+        while(!feof(f1)){
+            int tmp=ftell(fp);
+            fread(buffer, sizeof(char), blocksize, f1);
+            fwrite(buffer, sizeof(char),blocksize,fp);
+        }
+        fclose(f1);
+        result[headreader1->getColumnCount()]=ftell(fp);
+        FILE* f2=fopen((file2+"/fileout.dat").data(),"rb");
+        fseek(f2,headreader2->getColumn(0).getOffset(),SEEK_SET);
+        while(!feof(f2)){
+            fread(buffer, sizeof(char), blocksize, f2);
+            fwrite(buffer, sizeof(char),blocksize,fp);
+        }
+        fclose(f2);
+        fflush(fp);
+        fclose(fp);
+
+        for (int j = 1; j <headreader1->getColumnCount() ; ++j) {
+            result[j]=result[j-1]+headreader1->getColumn(j).getOffset()-headreader1->getColumn(j-1).getOffset();
+        }
+        for (int j = 1; j <headreader2->getColumnCount() ; ++j) {
+            result[j+headreader1->getColumnCount()]=result[j-1+headreader1->getColumnCount()]+headreader2->getColumn(j).getOffset()-headreader2->getColumn(j-1).getOffset();
+        }
+        fp=fopen((path+"/fileout.dat").data(),"rb+");
+        for (int m = 0; m < column_num; ++m) {
+            fseek(fp,foffsets[m],SEEK_SET);
+            fwrite((char *) &result[m], sizeof(result[m]),1,fp);
+        }
+        fflush(fp);
+        fclose(fp);
+
+}
+
+    void OLWriter(){
+        fstream schema_f("./nest.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
         ostringstream buf;
         char ch;
         while(buf&&schema_f.get(ch))
@@ -1059,19 +1163,591 @@ void testFileReader(){
         ValidSchema* vschema=new ValidSchema(n);
         GenericDatum c;
         c = GenericDatum(vschema->root());
-        GenericRecord* r[1]={NULL};
+        GenericRecord* r[2]={NULL};
+        GenericRecord* rt;
+        BatchFileWriter order(c,"./orders",1024);
         for(int i=0;i<1;i++){
             r[i]=new GenericRecord(c.value<GenericRecord>());
         }
+        GenericDatum t=r[0]->fieldAt(9);
+        c=GenericDatum(r[0]->fieldAt(9).value<GenericArray>().schema()->leafAt(0));
+        BatchFileWriter lineitmes(c,"./lineitem",1024);
+        r[1]=new GenericRecord(c.value<GenericRecord>());
+        fstream li("lineitem.tbl",ios::in);
+        fstream od("orders.tbl",ios::in);
+        string lline;
+        string oline;
+        getline(od,oline);
+        order.readLine(oline);
+        vector<GenericDatum> tmp_arr;
+        for(; std::getline(li, lline); ) {
+            lineitmes.readLine(lline);
+            while (order.getInd(0)<lineitmes.getInd(0)){
+                order.setArr(9,tmp_arr);
+                tmp_arr.clear();
+                order.writeRecord();
+                getline(od, oline);
+                order.readLine(oline);
+            }
+//            while(order.getInd(1)==lineitmes.getInd(1)) {
+//                lineitmes.writeRecord();
+//                tmp_arr.push_back(GenericDatum(lineitmes.getRecord()));
+//            }
+            lineitmes.writeRecord();
+            GenericRecord tmpRe=lineitmes.getRecord();
+            tmp_arr.push_back(GenericDatum(&tmpRe));
+        }
+        order.writeRest();
+        lineitmes.writeRest();
+        order.mergeFiles();
+        lineitmes.mergeFiles();
+
+        filesMerge("./orders","./lineitem","./result1");
+}
+
+void COfilesMerge(string file1,string file2, string path){
+    ifstream file_1;
+    file_1.open(file1+"/fileout.dat", ios_base::in|ios_base::binary);
+    unique_ptr<HeadReader> headreader1(new HeadReader());
+    headreader1->readHeader(file_1);
+    file_1.close();
+
+    ifstream file_2;
+    file_2.open(file2+"/fileout.dat", ios_base::in|ios_base::binary);
+    unique_ptr<HeadReader> headreader2(new HeadReader());
+    headreader2->readHeader(file_2);
+    file_2.close();
+
+    fstream fo;
+    int column_num=headreader1->getColumnCount()+headreader2->getColumnCount();
+    int blocksize=headreader1->getBlockSize();
+    fo.open(path+"/fileout.dat", ios_base::out | ios_base::binary);
+    long* foffsets=new long[column_num]();
+    int rowcount=headreader1->getRowCount();
+    fo.write((char *) &blocksize, sizeof(blocksize));
+    fo.write((char *) &rowcount, sizeof(rowcount));
+    fo.write((char *) &column_num, sizeof(column_num));
+    //fo << schema ;
+    //metadata
+    long* result=new long[column_num]();
+    for (int j = 0; j <headreader1->getColumnCount() ; ++j) {
+        int blockCount=headreader1->getColumn(j).getblockCount();
+        fo.write((char *) &blockCount, sizeof(int));
+        foffsets[j]=fo.tellg();
+        fo.write((char *) &foffsets[j], sizeof(long));
+        for (int i = 0; i < headreader1->getColumn(j).getblockCount(); ++i) {
+            int rowCount=headreader1->getColumn(j).getBlock(i).getRowcount();
+            int offset=headreader1->getColumn(j).getBlock(i).getOffset();
+            fo.write((char *) &(rowCount), sizeof (int));
+            fo.write((char *) &(offset), sizeof (int));
+        }
+    }
+    for (int j = 0; j <headreader2->getColumnCount() ; ++j) {
+        int blockCount=headreader2->getColumn(j).getblockCount();
+        fo.write((char *) &blockCount, sizeof(int));
+        foffsets[j+headreader1->getColumnCount()]=fo.tellg();
+        fo.write((char *) &foffsets[j+headreader1->getColumnCount()], sizeof(long));
+        for (int i = 0; i < headreader2->getColumn(j).getblockCount(); ++i) {
+            int rowCount=headreader2->getColumn(j).getBlock(i).getRowcount();
+            int offset=headreader2->getColumn(j).getBlock(i).getOffset();
+            fo.write((char *) &(rowCount), sizeof (int));
+            fo.write((char *) &(offset), sizeof (int));
+        }
+    }
+    result[0]=fo.tellg();
+    fo.close();
+    FILE* fp=fopen((path+"/fileout.dat").data(),"ab+");
+    char buffer[blocksize];
+    long* tmplong=(long*)buffer;
+    FILE* f1=fopen((file1+"/fileout.dat").data(),"rb");
+    fseek(f1,headreader1->getColumn(0).getOffset(),SEEK_SET);
+    while(!feof(f1)){
+        int tmp=ftell(fp);
+        fread(buffer, sizeof(char), blocksize, f1);
+        fwrite(buffer, sizeof(char),blocksize,fp);
+    }
+    fclose(f1);
+    result[headreader1->getColumnCount()]=ftell(fp);
+    FILE* f2=fopen((file2+"/fileout.dat").data(),"rb");
+    fseek(f2,headreader2->getColumn(0).getOffset(),SEEK_SET);
+    while(!feof(f2)){
+        fread(buffer, sizeof(char), blocksize, f2);
+        fwrite(buffer, sizeof(char),blocksize,fp);
+    }
+    fclose(f2);
+    fflush(fp);
+    fclose(fp);
+
+    for (int j = 1; j <headreader1->getColumnCount() ; ++j) {
+        result[j]=result[j-1]+headreader1->getColumn(j).getOffset()-headreader1->getColumn(j-1).getOffset();
+    }
+    for (int j = 1; j <headreader2->getColumnCount() ; ++j) {
+        result[j+headreader1->getColumnCount()]=result[j-1+headreader1->getColumnCount()]+headreader2->getColumn(j).getOffset()-headreader2->getColumn(j-1).getOffset();
+    }
+    fp=fopen((path+"/fileout.dat").data(),"rb+");
+    for (int m = 0; m < column_num; ++m) {
+        fseek(fp,foffsets[m],SEEK_SET);
+        fwrite((char *) &result[m], sizeof(result[m]),1,fp);
+    }
+    fflush(fp);
+    fclose(fp);
+
+}
 
 
+void COLWriter(){
+    fstream schema_f("./customer/nest.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
+    ostringstream buf;
+    char ch;
+    while(buf&&schema_f.get(ch))
+        buf.put(ch);
+    string s_schema=buf.str();
+    char* schema =const_cast<char*>(s_schema.c_str());
+    JsonParser test;
+    test.init(schema);
+    Entity e_test = readEntity(test);
+    SymbolTable st;
+    NodePtr n = makeNode(e_test, st, "");
+    ValidSchema* vschema=new ValidSchema(n);
+    GenericDatum c;
+    c = GenericDatum(vschema->root());
+    GenericRecord* r[3]={NULL};
+    GenericRecord* rt;
+    BatchFileWriter customer(c,"./customer",1024);
+    r[0]=new GenericRecord(c.value<GenericRecord>());
+    GenericDatum t=r[0]->fieldAt(8);
+    c=GenericDatum(r[0]->fieldAt(8).value<GenericArray>().schema()->leafAt(0));
+    BatchFileWriter orders(c,"./orders",1024);
+    r[1]=new GenericRecord(c.value<GenericRecord>());
+    fstream li("orders.tbl",ios::in);
+    fstream od("customer.tbl",ios::in);
+    string lline;
+    string oline;
+    getline(od,oline);
+    customer.readLine(oline);
+    vector<GenericDatum> tmp_arr;
+    for(; std::getline(li, lline); ) {
+        orders.readLine(lline);
+        while (customer.getInd(0)<orders.getInd(1)){
+            customer.setArr(8,tmp_arr);
+            tmp_arr.clear();
+            customer.writeRecord();
+            getline(od, oline);
+            customer.readLine(oline);
+        }
+//            while(customer.getInd(1)==orders.getInd(1)) {
+//                orders.writeRecord();
+//                tmp_arr.push_back(GenericDatum(orders.getRecord()));
+//            }
+        tmp_arr.push_back(GenericDatum());
+    }
+    customer.writeRest();
+    customer.mergeFiles();
 
+    COfilesMerge("./customer","./result1","./result2");
+}
+
+void NestedReader(string datafile,string schemafile){
+    fstream schema_f(schemafile, schema_f.binary |  schema_f.in|  schema_f.out );
+    ostringstream buf;
+    char ch;
+    while(buf&&schema_f.get(ch))
+        buf.put(ch);
+    string s_schema=buf.str();
+    char* schema =const_cast<char*>(s_schema.c_str());
+    JsonParser *test = new JsonParser();
+    test->init(schema);
+    Entity e_test = readEntity(*test);
+    SymbolTable st;
+    NodePtr n = makeNode(e_test, st, "");
+    ValidSchema* vschema=new ValidSchema(n);
+    GenericDatum c;
+    c = GenericDatum(vschema->root());
+    GenericRecord* r[2]={NULL,NULL};
+    r[0]=new GenericRecord(c.value<GenericRecord>());
+    GenericDatum t=r[0]->fieldAt(9);
+    c=GenericDatum(r[0]->fieldAt(9).value<GenericArray>().schema()->leafAt(0));
+    r[1]=new GenericRecord(c.value<GenericRecord>());
+    ifstream file_in;
+    file_in.open("./fileout.dat", ios_base::in|ios_base::binary);
+    unique_ptr<HeadReader> headreader(new HeadReader());
+    headreader->readHeader(file_in);
+    file_in.close();
+    FILE** fpp=new FILE*[26];
+
+    for (int i1 = 0; i1 <26 ; ++i1) {
+        fpp[i1]=fopen("./fileout.dat","rb");
+        fseek(fpp[i1],headreader->getColumns()[i1].getOffset(), SEEK_SET);
+    }
+    int* rind=new int[26]();
+    int* bind=new int[26]();
+    int* rcounts=new int[26]();
+    for (int l1 = 0; l1 <26; ++l1) {
+        rcounts[l1]=headreader->getColumns()[l1].getBlock(bind[l1]).getRowcount();
+    }
+    int blocksize=1024;
+    PrimitiveBlock<long> *block0=new PrimitiveBlock<long>(fpp[0], 0L, 0, blocksize);
+    block0->loadFromFile();
+    PrimitiveBlock<int> *block9=new PrimitiveBlock<int>(fpp[9], 0L, 0, blocksize);
+    block9->loadFromFile();
+    PrimitiveBlock<long> *block10=new PrimitiveBlock<long>(fpp[10], 0L, 0, blocksize);
+    block10->loadFromFile();
+    long orderkey;
+    long key;
+    for (int k1 = 0; k1 < headreader->getRowCount(); ++k1) {
+        for (int i :{0,9}) {
+            switch (r[0]->fieldAt(i).type()){
+                case AVRO_LONG:{
+                    if(rind[i]==rcounts[i]){
+                        block0->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+//                    r[0]->fieldAt(i)=block0->get(rind[i]);
+                    orderkey=block0->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case AVRO_ARRAY:{
+                    if(rind[i]==rcounts[i]){
+                        block9->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    int arrsize=block9->get(rind[i]);
+                    vector<GenericDatum> records;
+                    for (int j = 0; j <arrsize ; ++j) {
+                        for (int k:{10}) {
+                            switch (r[1]->fieldAt(k-10).type()){
+                                case AVRO_LONG:{
+                                    if(rind[k]==rcounts[k]){
+                                        block10->loadFromFile();
+                                        rind[k]=0;
+                                        rcounts[k]=headreader->getColumns()[k].getBlock(bind[k]).getRowcount();
+                                        bind[k]++;
+                                    }
+//                                    r[1]->fieldAt(k-10)=block10->get(rind[k]);
+                                    key=block10->get(rind[k]);
+                                    rind[i]++;
+                                    break;}
+                        }
+                    }
+                        records.push_back(GenericDatum(r[1]));
+                    }
+                    r[0]->fieldAt(9).value<GenericArray>().value()=records;
+
+            }
+        }
+    }}
+    for (int i1 = 0; i1 <26 ; ++i1) {
+        fclose(fpp[i1]);
+    }
+
+}
+
+void LReader(string datafile,string schemafile, vector<int> rv){
+    fstream schema_f(schemafile, schema_f.binary |  schema_f.in|  schema_f.out );
+    ostringstream buf;
+    char ch;
+    while(buf&&schema_f.get(ch))
+        buf.put(ch);
+    string s_schema=buf.str();
+    char* schema =const_cast<char*>(s_schema.c_str());
+    JsonParser *test = new JsonParser();
+    test->init(schema);
+    Entity e_test = readEntity(*test);
+    SymbolTable st;
+    NodePtr n = makeNode(e_test, st, "");
+    ValidSchema* vschema=new ValidSchema(n);
+    GenericDatum c;
+    c = GenericDatum(vschema->root());
+    GenericRecord* r[2]={NULL,NULL};
+    r[0]=new GenericRecord(c.value<GenericRecord>());
+    GenericDatum t=r[0]->fieldAt(9);
+    ifstream file_in;
+    file_in.open("./fileout.dat", ios_base::in|ios_base::binary);
+    unique_ptr<HeadReader> headreader(new HeadReader());
+    headreader->readHeader(file_in);
+    file_in.close();
+    FILE** fpp=new FILE*[16];
+
+    for (int i1 = 0; i1 <16 ; ++i1) {
+        fpp[i1]=fopen("./fileout.dat","rb");
+        fseek(fpp[i1],headreader->getColumns()[i1+10].getOffset(), SEEK_SET);
+    }
+    int* rind=new int[16]();
+    int* bind=new int[16]();
+    int* rcounts=new int[16]();
+    for (int l1 = 0; l1 <16; ++l1) {
+        rcounts[l1]=headreader->getColumns()[l1+10].getBlock(bind[l1]).getRowcount();
+    }
+    int blocksize=1024;
+    PrimitiveBlock<long> *block0=new PrimitiveBlock<long>(fpp[0], 0L, 0, blocksize);
+    block0->loadFromFile();
+    PrimitiveBlock<long> *block1=new PrimitiveBlock<long>(fpp[1], 0L, 0, blocksize);
+    block1->loadFromFile();
+    PrimitiveBlock<long> *block2=new PrimitiveBlock<long>(fpp[2], 0L, 0, blocksize);
+    block2->loadFromFile();
+    PrimitiveBlock<int> *block3=new PrimitiveBlock<int>(fpp[3], 0L, 0, blocksize);
+    block3->loadFromFile();
+    PrimitiveBlock<float> *block4=new PrimitiveBlock<float>(fpp[4], 0L, 0, blocksize);
+    block4->loadFromFile();
+    PrimitiveBlock<float> *block5=new PrimitiveBlock<float>(fpp[5], 0L, 0, blocksize);
+    block5->loadFromFile();
+    PrimitiveBlock<float> *block6=new PrimitiveBlock<float>(fpp[6], 0L, 0, blocksize);
+    block6->loadFromFile();
+    PrimitiveBlock<float> *block7=new PrimitiveBlock<float>(fpp[7], 0L, 0, blocksize);
+    block7->loadFromFile();
+    PrimitiveBlock<char> *block8=new PrimitiveBlock<char>(fpp[8], 0L, 0, blocksize);
+    block8->loadFromFile();
+    PrimitiveBlock<char> *block9=new PrimitiveBlock<char>(fpp[9], 0L, 0, blocksize);
+    block9->loadFromFile();
+    PrimitiveBlock<string> *block10=new PrimitiveBlock<string>(fpp[10], 0L, 0, blocksize);
+    block10->loadFromFile();
+    PrimitiveBlock<string> *block11=new PrimitiveBlock<string>(fpp[11], 0L, 0, blocksize);
+    block11->loadFromFile();
+    PrimitiveBlock<string> *block12=new PrimitiveBlock<string>(fpp[12], 0L, 0, blocksize);
+    block12->loadFromFile();
+    PrimitiveBlock<string> *block13=new PrimitiveBlock<string>(fpp[13], 0L, 0, blocksize);
+    block13->loadFromFile();
+    PrimitiveBlock<string> *block14=new PrimitiveBlock<string>(fpp[14], 0L, 0, blocksize);
+    block14->loadFromFile();
+    PrimitiveBlock<string> *block15=new PrimitiveBlock<string>(fpp[15], 0L, 0, blocksize);
+    block15->loadFromFile();
+    long orderkey;
+    long key;
+    long max=headreader->getColumn(10).getblockCount();
+    for (;bind[0]<max;) {
+        for (int i :rv) {
+            switch (i){
+                case 0:{
+                    if(rind[i]==rcounts[i]){
+                        block0->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+//                    r[0]->fieldAt(0)=block0->get(rind[i]);
+                    orderkey=block0->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 1:{
+                    if(rind[i]==rcounts[i]){
+                        block1->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+//                    r[0]->fieldAt(1)=block1->get(rind[i]);
+                    key=block1->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 2:{
+                    if(rind[i]==rcounts[i]){
+                        block2->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(2)=block2->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 3:{
+                    if(rind[i]==rcounts[i]){
+                        block3->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(3)=block3->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 4:{
+                    if(rind[i]==rcounts[i]){
+                        block4->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(4)=block4->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 5:{
+                    if(rind[i]==rcounts[i]){
+                        block5->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(5)=block5->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 6:{
+                    if(rind[i]==rcounts[i]){
+                        block6->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(6)=block6->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 7:{
+                    if(rind[i]==rcounts[i]){
+                        block7->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(7)=block7->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 8:{
+                    if(rind[i]==rcounts[i]){
+                        block8->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(8)=block8->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 9:{
+                    if(rind[i]==rcounts[i]){
+                        block9->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(9)=block9->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 10:{
+                    if(rind[i]==rcounts[i]){
+                        block10->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(10)=block10->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 11:{
+                    if(rind[i]==rcounts[i]){
+                        block11->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(11)=block11->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 12:{
+                    if(rind[i]==rcounts[i]){
+                        block12->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(12)=block12->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 13:{
+                    if(rind[i]==rcounts[i]){
+                        block13->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(13)=block13->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 14:{
+                    if(rind[i]==rcounts[i]){
+                        block14->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(14)=block14->get(rind[i]);
+                    rind[i]++;
+                    break;}
+                case 15:{
+                    if(rind[i]==rcounts[i]){
+                        block15->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    r[0]->fieldAt(15)=block15->get(rind[i]);
+                    rind[i]++;
+                    break;}
+            }
+        }}
+    for (int i1 = 0; i1 <26 ; ++i1) {
+        fclose(fpp[i1]);
+    }
+
+}
+
+
+void fileTest(){
+    fstream schema_f("./nest.avsc", schema_f.binary |  schema_f.in|  schema_f.out );
+    ostringstream buf;
+    char ch;
+    while(buf&&schema_f.get(ch))
+        buf.put(ch);
+    string s_schema=buf.str();
+    char* schema =const_cast<char*>(s_schema.c_str());
+    JsonParser *test = new JsonParser();
+    test->init(schema);
+    Entity e_test = readEntity(*test);
+    SymbolTable st;
+    NodePtr n = makeNode(e_test, st, "");
+    ValidSchema* vschema=new ValidSchema(n);
+    GenericDatum c;
+    c = GenericDatum(vschema->root());
+    GenericRecord* r[2]={NULL,NULL};
+    r[0]=new GenericRecord(c.value<GenericRecord>());
+    GenericDatum t=r[0]->fieldAt(9);
+    c=GenericDatum(r[0]->fieldAt(9).value<GenericArray>().schema()->leafAt(0));
+    r[1]=new GenericRecord(c.value<GenericRecord>());
+    ifstream file_in;
+    file_in.open("./fileout.dat", ios_base::in|ios_base::binary);
+    unique_ptr<HeadReader> headreader(new HeadReader());
+    headreader->readHeader(file_in);
+    file_in.close();
+    FILE* fpr=fopen("./fileout.dat","rb");
+    int count=0;
+    int i=11;
+    int off=headreader->getColumns()[11].getOffset();
+    fseek(fpr,off, SEEK_SET);
+    long buffer[256];
+
+    PrimitiveBlock<long> *block0=new PrimitiveBlock<long>(fpr, 0L, 0, 1024);
+    block0->loadFromFile();
+    for (int j = 0; j <5; ++j) {
+        for (int k = 0; k <256 ; ++k) {
+            cout<<block0->get(k)<<" ";
+        }
+        block0->loadFromFile();
+        cout<<endl;
+    }
+
+//    PrimitiveBlock<long> *intBlock = new PrimitiveBlock<long>(fpr, 0L, 0, 1024);
+//    intBlock->loadFromFile();
+//    cout<<intBlock->get(3);
 }
 
 
 int main() {
 //    testFILEWRITER();
 //    testFileReader();
-    testSchema();
+//    OLWriter();
+//    NestedReader("./fileout.dat","./nest.avsc");
+    LReader("./fileout.dat","./single.avsc",{0,1});
+//    fileTest();
+//    filesMerge("./orders","./lineitem",".");
     return 0;
 }

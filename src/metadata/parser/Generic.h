@@ -7,6 +7,7 @@
 
 using namespace std;
 
+class GenericRecord;
 
 inline NodePtr resolveSymbol(const NodePtr &node) {
     if (node->type() != AVRO_SYMBOLIC) {
@@ -107,6 +108,10 @@ public:
 
     GenericDatum(char v) :
             type_(AVRO_BYTES), value_(v) {}
+
+
+
+    GenericDatum(GenericRecord* v);
     /**
      * Constructs a datum corresponding to the given avro type.
      * The value will the appropraite default corresponding to the
@@ -347,6 +352,11 @@ public:
         return value_;
     }
 };
+
+GenericDatum::GenericDatum(GenericRecord* v){
+    type_=AVRO_RECORD;
+    value_ = *v;
+}
 
 void GenericDatum::init(const NodePtr &schema) {
     NodePtr sc = schema;
