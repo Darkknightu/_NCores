@@ -303,13 +303,6 @@ public:
     }
 
     void mergeFiles(){
-        for (int l = 0; l < column_num; ++l) {
-            fflush(data_files[l]);
-            fflush(head_files[l]);
-            fclose(data_files[l]);
-            fclose(head_files[l]);
-        }
-
         for (int i = 0; i <column_num ; ++i) {
             head_files[i]=fopen((path+"/file"+to_string(i)+".head").data(),"rb");
             data_files[i]=fopen((path+"/file"+to_string(i)+".data").data(),"rb");
@@ -337,7 +330,7 @@ public:
         }
         result[0]=fo.tellg();
         fo.close();
-        FILE* fp=fopen((path+"./fileout.dat").data(),"ab+");
+        FILE* fp=fopen((path+"/fileout.dat").data(),"ab+");
         char* buffer=new char[blocksize];
         long* tmpl=(long*) buffer;
         for (int j = 0; j <column_num ; ++j) {

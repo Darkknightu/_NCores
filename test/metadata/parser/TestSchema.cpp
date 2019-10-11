@@ -1374,6 +1374,7 @@ void NestedReader(string datafile,string schemafile){
     headreader->readHeader(file_in);
     file_in.close();
     FILE** fpp=new FILE*[26];
+    int count=0;
 
     for (int i1 = 0; i1 <26 ; ++i1) {
         fpp[i1]=fopen("./fileout.dat","rb");
@@ -1386,58 +1387,161 @@ void NestedReader(string datafile,string schemafile){
         rcounts[l1]=headreader->getColumns()[l1].getBlock(bind[l1]).getRowcount();
     }
     int blocksize=1024;
-    PrimitiveBlock<long> *block0=new PrimitiveBlock<long>(fpp[0], 0L, 0, blocksize);
-    block0->loadFromFile();
-    PrimitiveBlock<int> *block9=new PrimitiveBlock<int>(fpp[9], 0L, 0, blocksize);
-    block9->loadFromFile();
-    PrimitiveBlock<long> *block10=new PrimitiveBlock<long>(fpp[10], 0L, 0, blocksize);
-    block10->loadFromFile();
+    Block* blockreaders[26];
+    for (int j = 0; j < 26; ++j) {
+        blockreaders[j]=new Block(fpp[j], 0L, 0, blocksize);
+        blockreaders[j]->loadFromFile();
+    }
     long orderkey;
     long key;
     for (int k1 = 0; k1 < headreader->getRowCount(); ++k1) {
-        for (int i :{0,9}) {
+        for (int i :{0,2,9}) {
             switch (r[0]->fieldAt(i).type()){
                 case AVRO_LONG:{
                     if(rind[i]==rcounts[i]){
-                        block0->loadFromFile();
+                        blockreaders[i]->loadFromFile();
                         rind[i]=0;
                         rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-//                    r[0]->fieldAt(i)=block0->get(rind[i]);
-                    orderkey=block0->get(rind[i]);
+                    long tmp=blockreaders[i]->next<long>();
+                    r[0]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
+                    rind[i]++;
+                    break;}
+                case AVRO_INT:{
+                    if(rind[i]==rcounts[i]){
+                        blockreaders[i]->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    int tmp=blockreaders[i]->next<int>();
+                    r[0]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
+                    rind[i]++;
+                    break;}
+                case AVRO_STRING:{
+                    if(rind[i]==rcounts[i]){
+                        blockreaders[i]->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    string tmp=blockreaders[i]->next<char*>();
+                    r[0]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
+                    rind[i]++;
+                    break;}
+                case AVRO_FLOAT:{
+                    if(rind[i]==rcounts[i]){
+                        blockreaders[i]->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    float tmp=blockreaders[i]->next<float>();
+                    r[0]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
+                    rind[i]++;
+                    break;}
+                case AVRO_BYTES:{
+                    if(rind[i]==rcounts[i]){
+                        blockreaders[i]->loadFromFile();
+                        rind[i]=0;
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
+                        bind[i]++;
+                    }
+                    char tmp=blockreaders[i]->next<char>();
+                    r[0]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
                     rind[i]++;
                     break;}
                 case AVRO_ARRAY:{
                     if(rind[i]==rcounts[i]){
-                        block9->loadFromFile();
+                        blockreaders[i]->loadFromFile();
                         rind[i]=0;
                         rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-                    int arrsize=block9->get(rind[i]);
+                    int arrsize=blockreaders[i]->next<int>();
+                    rind[i]++;
+                    cout<<arrsize<<endl;
                     vector<GenericDatum> records;
                     for (int j = 0; j <arrsize ; ++j) {
-                        for (int k:{10}) {
+                        int k=0;
+                        if(k!=0) {
                             switch (r[1]->fieldAt(k-10).type()){
                                 case AVRO_LONG:{
                                     if(rind[k]==rcounts[k]){
-                                        block10->loadFromFile();
+                                        blockreaders[k]->loadFromFile();
                                         rind[k]=0;
                                         rcounts[k]=headreader->getColumns()[k].getBlock(bind[k]).getRowcount();
                                         bind[k]++;
                                     }
-//                                    r[1]->fieldAt(k-10)=block10->get(rind[k]);
-                                    key=block10->get(rind[k]);
-                                    rind[i]++;
+                                    long tmp=blockreaders[k]->next<long>();
+                                    r[1]->fieldAt(k-10)=tmp;
+                                    cout<<tmp<<" ";
+                                    rind[k]++;
+                                    break;}
+                                case AVRO_INT:{
+                                    if(rind[k]==rcounts[k]){
+                                        blockreaders[k]->loadFromFile();
+                                        rind[k]=0;
+                                        rcounts[k]=headreader->getColumns()[k].getBlock(bind[k]).getRowcount();
+                                        bind[k]++;
+                                    }
+                                    int tmp=blockreaders[k]->next<int>();
+                                    r[1]->fieldAt(k-10)=tmp;
+                                    cout<<tmp<<" ";
+                                    rind[k]++;
+                                    break;}
+                                case AVRO_STRING:{
+                                    if(rind[k]==rcounts[k]){
+                                        blockreaders[k]->loadFromFile();
+                                        rind[k]=0;
+                                        rcounts[k]=headreader->getColumns()[k].getBlock(bind[k]).getRowcount();
+                                        bind[k]++;
+                                    }
+                                    string tmp=blockreaders[k]->next<char*>();
+                                    r[1]->fieldAt(k-10)=tmp;
+                                    cout<<tmp<<" ";
+                                    rind[k]++;
+                                    break;}
+                                case AVRO_FLOAT:{
+                                    if(rind[k]==rcounts[k]){
+                                        blockreaders[k]->loadFromFile();
+                                        rind[k]=0;
+                                        rcounts[k]=headreader->getColumns()[k].getBlock(bind[k]).getRowcount();
+                                        bind[k]++;
+                                    }
+                                    float tmp=blockreaders[k]->next<float>();
+                                    r[1]->fieldAt(k-10)=tmp;
+                                    cout<<tmp<<" ";
+                                    rind[k]++;
+                                    break;}
+                                case AVRO_BYTES:{
+                                    if(rind[k]==rcounts[k]){
+                                        blockreaders[k]->loadFromFile();
+                                        rind[k]=0;
+                                        rcounts[k]=headreader->getColumns()[k].getBlock(bind[k]).getRowcount();
+                                        bind[k]++;
+                                    }
+                                    char tmp=blockreaders[k]->next<char>();
+                                    r[1]->fieldAt(k-10)=tmp;
+                                    cout<<tmp<<" ";
+                                    rind[k]++;
                                     break;}
                         }
                     }
-                        records.push_back(GenericDatum(r[1]));
+                        //records.push_back(GenericDatum(r[1]));
                     }
                     r[0]->fieldAt(9).value<GenericArray>().value()=records;
-
+                    records.clear();
+//                    cout<<endl;
             }
+//            cout<<endl;
+//                cout<<endl;
         }
     }}
     for (int i1 = 0; i1 <26 ; ++i1) {
@@ -1465,6 +1569,8 @@ void LReader(string datafile,string schemafile, vector<int> rv){
     GenericRecord* r[2]={NULL,NULL};
     r[0]=new GenericRecord(c.value<GenericRecord>());
     GenericDatum t=r[0]->fieldAt(9);
+    c=GenericDatum(r[0]->fieldAt(9).value<GenericArray>().schema()->leafAt(0));
+    r[1]=new GenericRecord(c.value<GenericRecord>());
     ifstream file_in;
     file_in.open("./fileout.dat", ios_base::in|ios_base::binary);
     unique_ptr<HeadReader> headreader(new HeadReader());
@@ -1483,209 +1589,86 @@ void LReader(string datafile,string schemafile, vector<int> rv){
         rcounts[l1]=headreader->getColumns()[l1+10].getBlock(bind[l1]).getRowcount();
     }
     int blocksize=1024;
-    PrimitiveBlock<long> *block0=new PrimitiveBlock<long>(fpp[0], 0L, 0, blocksize);
-    block0->loadFromFile();
-    PrimitiveBlock<long> *block1=new PrimitiveBlock<long>(fpp[1], 0L, 0, blocksize);
-    block1->loadFromFile();
-    PrimitiveBlock<long> *block2=new PrimitiveBlock<long>(fpp[2], 0L, 0, blocksize);
-    block2->loadFromFile();
-    PrimitiveBlock<int> *block3=new PrimitiveBlock<int>(fpp[3], 0L, 0, blocksize);
-    block3->loadFromFile();
-    PrimitiveBlock<float> *block4=new PrimitiveBlock<float>(fpp[4], 0L, 0, blocksize);
-    block4->loadFromFile();
-    PrimitiveBlock<float> *block5=new PrimitiveBlock<float>(fpp[5], 0L, 0, blocksize);
-    block5->loadFromFile();
-    PrimitiveBlock<float> *block6=new PrimitiveBlock<float>(fpp[6], 0L, 0, blocksize);
-    block6->loadFromFile();
-    PrimitiveBlock<float> *block7=new PrimitiveBlock<float>(fpp[7], 0L, 0, blocksize);
-    block7->loadFromFile();
-    PrimitiveBlock<char> *block8=new PrimitiveBlock<char>(fpp[8], 0L, 0, blocksize);
-    block8->loadFromFile();
-    PrimitiveBlock<char> *block9=new PrimitiveBlock<char>(fpp[9], 0L, 0, blocksize);
-    block9->loadFromFile();
-    PrimitiveBlock<string> *block10=new PrimitiveBlock<string>(fpp[10], 0L, 0, blocksize);
-    block10->loadFromFile();
-    PrimitiveBlock<string> *block11=new PrimitiveBlock<string>(fpp[11], 0L, 0, blocksize);
-    block11->loadFromFile();
-    PrimitiveBlock<string> *block12=new PrimitiveBlock<string>(fpp[12], 0L, 0, blocksize);
-    block12->loadFromFile();
-    PrimitiveBlock<string> *block13=new PrimitiveBlock<string>(fpp[13], 0L, 0, blocksize);
-    block13->loadFromFile();
-    PrimitiveBlock<string> *block14=new PrimitiveBlock<string>(fpp[14], 0L, 0, blocksize);
-    block14->loadFromFile();
-    PrimitiveBlock<string> *block15=new PrimitiveBlock<string>(fpp[15], 0L, 0, blocksize);
-    block15->loadFromFile();
+    Block* blockreaders[16];
+    for (int j = 0; j < 16; ++j) {
+        blockreaders[j]=new Block(fpp[j], 0L, 0, blocksize);
+        blockreaders[j]->loadFromFile();
+    }
     long orderkey;
     long key;
     long max=headreader->getColumn(10).getblockCount();
+
+//    orderkey=blockreaders[i]->get<long>(rind[i]);
     for (;bind[0]<max;) {
         for (int i :rv) {
-            switch (i){
-                case 0:{
+            switch (r[1]->fieldAt(i).type()){
+                case AVRO_LONG:{
                     if(rind[i]==rcounts[i]){
-                        block0->loadFromFile();
-                        rind[i]=0;
+                        blockreaders[i]->loadFromFile();
+                        rind[i]=1;
                         rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-//                    r[0]->fieldAt(0)=block0->get(rind[i]);
-                    orderkey=block0->get(rind[i]);
+                    long tmp=blockreaders[i]->next<long>();
+                    r[1]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
                     rind[i]++;
                     break;}
-                case 1:{
+                case AVRO_INT:{
                     if(rind[i]==rcounts[i]){
-                        block1->loadFromFile();
+                        blockreaders[i]->loadFromFile();
                         rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-//                    r[0]->fieldAt(1)=block1->get(rind[i]);
-                    key=block1->get(rind[i]);
+                    int tmp=blockreaders[i]->next<int>();
+                    r[1]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
                     rind[i]++;
                     break;}
-                case 2:{
+                case AVRO_STRING:{
                     if(rind[i]==rcounts[i]){
-                        block2->loadFromFile();
+                        blockreaders[i]->loadFromFile();
                         rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-                    r[0]->fieldAt(2)=block2->get(rind[i]);
+                    string tmp=blockreaders[i]->next<char*>();
+                    r[1]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
                     rind[i]++;
                     break;}
-                case 3:{
+                case AVRO_FLOAT:{
                     if(rind[i]==rcounts[i]){
-                        block3->loadFromFile();
+                        blockreaders[i]->loadFromFile();
                         rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-                    r[0]->fieldAt(3)=block3->get(rind[i]);
+                    float tmp=blockreaders[i]->next<float>();
+                    r[1]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
                     rind[i]++;
                     break;}
-                case 4:{
+                case AVRO_BYTES:{
                     if(rind[i]==rcounts[i]){
-                        block4->loadFromFile();
+                        blockreaders[i]->loadFromFile();
                         rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
+                        rcounts[i]=headreader->getColumns()[i].getBlock(bind[i]).getRowcount();
                         bind[i]++;
                     }
-                    r[0]->fieldAt(4)=block4->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 5:{
-                    if(rind[i]==rcounts[i]){
-                        block5->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(5)=block5->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 6:{
-                    if(rind[i]==rcounts[i]){
-                        block6->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(6)=block6->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 7:{
-                    if(rind[i]==rcounts[i]){
-                        block7->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(7)=block7->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 8:{
-                    if(rind[i]==rcounts[i]){
-                        block8->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(8)=block8->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 9:{
-                    if(rind[i]==rcounts[i]){
-                        block9->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(9)=block9->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 10:{
-                    if(rind[i]==rcounts[i]){
-                        block10->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(10)=block10->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 11:{
-                    if(rind[i]==rcounts[i]){
-                        block11->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(11)=block11->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 12:{
-                    if(rind[i]==rcounts[i]){
-                        block12->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(12)=block12->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 13:{
-                    if(rind[i]==rcounts[i]){
-                        block13->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(13)=block13->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 14:{
-                    if(rind[i]==rcounts[i]){
-                        block14->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(14)=block14->get(rind[i]);
-                    rind[i]++;
-                    break;}
-                case 15:{
-                    if(rind[i]==rcounts[i]){
-                        block15->loadFromFile();
-                        rind[i]=0;
-                        rcounts[i]=headreader->getColumns()[i+10].getBlock(bind[i]).getRowcount();
-                        bind[i]++;
-                    }
-                    r[0]->fieldAt(15)=block15->get(rind[i]);
+                    char tmp=blockreaders[i]->next<char>();
+                    r[1]->fieldAt(i)=tmp;
+                    cout<<tmp<<" ";
                     rind[i]++;
                     break;}
             }
-        }}
-    for (int i1 = 0; i1 <26 ; ++i1) {
+            if (i==15){
+                cout<<endl;
+            }
+        }
+    }
+    for (int i1 = 0; i1 <16 ; ++i1) {
         fclose(fpp[i1]);
     }
 
@@ -1719,21 +1702,30 @@ void fileTest(){
     headreader->readHeader(file_in);
     file_in.close();
     FILE* fpr=fopen("./fileout.dat","rb");
+    FILE* _fpr=fopen("./fileout.dat","rb");
     int count=0;
-    int i=11;
-    int off=headreader->getColumns()[11].getOffset();
-    fseek(fpr,off, SEEK_SET);
-    long buffer[256];
+    int i=9;
+    int off=headreader->getColumns()[i].getOffset();
+    fseek(fpr,off, SEEK_SET);fseek(_fpr,headreader->getColumns()[0].getOffset(), SEEK_SET);
+    char buffer[1024];
 
-    PrimitiveBlock<long> *block0=new PrimitiveBlock<long>(fpr, 0L, 0, 1024);
-    block0->loadFromFile();
-    for (int j = 0; j <5; ++j) {
-        for (int k = 0; k <256 ; ++k) {
-            cout<<block0->get(k)<<" ";
+    Block *stringBlock = new Block(fpr, 0L, 0, 1024);
+    Block *keyBlock = new Block(_fpr, 0L, 0, 1024);
+    for (int k = 0; k < 5; k++) {
+        stringBlock->loadFromFile();
+        keyBlock->loadFromFile();
+        int rcount=headreader->getColumns()[i].getBlocks()[k].getRowcount();
+        for (int i = 0; i < rcount; i++) {
+            long key=keyBlock->next<long>();
+            int tmp=stringBlock->next<int>();
+            count++;
+            cout<<key<<" "<<tmp<<endl;
         }
-        block0->loadFromFile();
+        stringBlock->loadFromFile();
         cout<<endl;
     }
+    delete stringBlock;
+
 
 //    PrimitiveBlock<long> *intBlock = new PrimitiveBlock<long>(fpr, 0L, 0, 1024);
 //    intBlock->loadFromFile();
@@ -1745,8 +1737,13 @@ int main() {
 //    testFILEWRITER();
 //    testFileReader();
 //    OLWriter();
-//    NestedReader("./fileout.dat","./nest.avsc");
-    LReader("./fileout.dat","./single.avsc",{0,1});
+    NestedReader("./fileout.dat","./nest.avsc");
+//    vector<int> tmp;
+//    for (int i=0;i<16;i++){
+//        tmp.push_back(i);
+//    }
+//
+//    LReader("./fileout.dat","./nest.avsc",tmp);
 //    fileTest();
 //    filesMerge("./orders","./lineitem",".");
     return 0;
